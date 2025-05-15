@@ -7,4 +7,8 @@ class MovableObject{                            // eine Schablone mit der wir sa
         console.log('moving right');
         
     }
+
+    moveLeft(){
+        
+    }
 }
