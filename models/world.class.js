@@ -9,7 +9,7 @@ class World{
         new Cloud()
     ];
     backgroundObjects = [
-        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0, 100)
+        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0,)
     ];
     canvas;
     ctx;
@@ -24,8 +24,8 @@ class World{
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben 
         /* this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height)      // mit this.character.img greifen wir auf des Bild unseres Characters zu ; pos1 = img, pos2= x position in canvas, pos3= yposition in canvas, pos4= breite und pos5=höhe */
+        this.addObejctsToMap(this.backgroundObjects);                                                                                   // der hintergrund muss als erstes hinzugefügt werden weil es sonst überallen anderem ist wenn man es zuletzt hinzufügt
         this.addToMap(this.character);
-        this.addObejctsToMap(this.backgroundObjects);
         this.addObejctsToMap(this.enemies);
         this.addObejctsToMap(this.clouds);
 
