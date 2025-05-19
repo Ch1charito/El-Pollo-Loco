@@ -5,6 +5,9 @@ class World{
     new Chicken(),
     new Chicken(),
     ];
+    clouds = [
+        new Cloud()
+    ];
     canvas;
     ctx;
 
@@ -18,8 +21,11 @@ class World{
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben 
         this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height)      // mit this.character.img greifen wir auf des Bild unseres Characters zu ; pos1 = img, pos2= x position in canvas, pos3= yposition in canvas, pos4= breite und pos5=höhe
-        this.enemies.forEach(enemies => {
+        this.enemies.forEach(enemies => {                                                                                            // eine schleife das durch jedes objekt in enemies wiederholt
             this.ctx.drawImage(enemies.img, enemies.x, enemies.y, enemies.width, enemies.height)                                     // wir führen die drawImage methode für jedes element aus enemies aus
+        });
+        this.clouds.forEach(clouds => {                                                                                            // eine schleife das durch jedes objekt in clouds wiederholt
+            this.ctx.drawImage(clouds.img, clouds.x, clouds.y, clouds.width, clouds.height)                                     // wir führen die drawImage methode für jedes element aus clouds aus
         });
 
         self = this;                                    // draw wird immer wieder aufgerufen
