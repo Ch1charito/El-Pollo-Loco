@@ -13,11 +13,11 @@ class Cloud extends MovableObject{
     }
 
     //#region methods
-    animate(){                                                                          // eine function um die wolke zu animiere
-        setInterval( () => {                                                            // mit setIntervall kann ich eine bestimmte function in einem bestimmten Zeitintervall wiederholen
-        this.x -= 0.15;                                                                    // 0.15 in dem fall px werden von der x koordinate im canvas abgezogen
-        },1000 / 60)                                                                    // 60 fps => frames pro sekunde --> die functino wird 60 mal pro sekunde aufgerufen
+    animate(){                                                                          // eine function um die wolke zu animiere wird von der movable object class übergeben
+        this.moveLeft();                                                                  
     }
+
+    
 
     // #endregion
 }

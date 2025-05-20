@@ -8,6 +8,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     width = 100;
     imageCache = {};                            // unser Bilderspeicher
     currentImage = 0;
+    speed = 0.15;
     
     // #endregion
 
@@ -35,7 +36,9 @@ class MovableObject{                            // eine Schablone mit der wir sa
     }
 
     moveLeft(){
-        
+        setInterval( () => {                                                            // mit setIntervall kann ich eine bestimmte function in einem bestimmten Zeitintervall wiederholen
+        this.x -= 0.15;                                                                 // 0.15 in dem fall px werden von der x koordinate im canvas abgezogen
+        },1000 / 60)                                                                    // 60 fps => frames pro sekunde --> die functino wird 60 mal pro sekunde aufgerufen
     }
 
     // #endregion
