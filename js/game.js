@@ -1,9 +1,50 @@
 let canvas;
 let world;
+let keyboard = new Keyboard();                                                  // ein neues Keyboard von unserem Object
 
 function init() {
     canvas = document.getElementById('canvas');                                 // wir verknüpfen unser canvas
-    world = new World(canvas);                                                  // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit
+    world = new World(canvas, keyboard);                                        // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit, --> zudem übergeben wir auch unsere variable keyboard
     console.log('my Character is', world.character);
     
 }
+
+// #region key-event-listener
+window.addEventListener('keydown', (e) =>{                                     // ein keyboard event wenn man den button runterdrückt
+    if(e.keyCode == 39){                                                       // wenn wir die taste mit dem keyCode 39 drücken ist right im objekt keyboard von false zu right geändert worden
+        keyboard.RIGHT = true;
+    };
+    if(e.keyCode == 37){
+        keyboard.LEFT = true;
+    };
+    if(e.keyCode == 38){
+        keyboard.UP = true;
+    };
+    if(e.keyCode == 40){
+        keyboard.DOWN = true;
+    };
+    if(e.keyCode == 32){
+        keyboard.SPACE = true;
+    };
+    console.log(e);
+});
+
+window.addEventListener('keyup', (e) =>{                                        // ein keyboard event wenn man den button loslässt
+    if(e.keyCode == 39){                                                       // wenn wir die taste mit dem keyCode 39 los lassen wird wieder auf false geändert
+        keyboard.RIGHT = false;
+    };
+    if(e.keyCode == 37){
+        keyboard.LEFT = false;
+    };
+    if(e.keyCode == 38){
+        keyboard.UP = false;
+    };
+    if(e.keyCode == 40){
+        keyboard.DOWN = false;
+    };
+    if(e.keyCode == 32){
+        keyboard.SPACE = false;
+    };
+    console.log(e);
+});
+// #endregion
