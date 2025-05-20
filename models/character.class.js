@@ -3,6 +3,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     // #region attributes
     height = 280;
     y = 155;
+    speed = 10;
     imagesWalking = [                                                             
             'img/2_character_pepe/2_walk/W-21.png',                                   // wir fügen unserem bildspiecer (JSON imageCache) einmal den path und eine value mit dem path hinzu
             'img/2_character_pepe/2_walk/W-22.png',
@@ -22,15 +23,24 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
 
     // #region methods
     animate(){                                                                        // eine function zum animieren unserers characters
-        setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
+
+        setInterval(() => {
             if(this.world.keyboard.RIGHT){
+                this.x += this.speed;
+            }
+
+        }, 1000 / 60);
+
+        setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
+            if(this.world.keyboard.RIGHT){                                            // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht
+                // walk animation
                 let i = this.currentImage % this.imagesWalking.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
                 // i = 1,2,3,4,5,0   => ist eine unendliche reihe
                 let path = this.imagesWalking[i];                                         // wir holen den Pfad zum aktuellen Bild aus dem Array imagesWalking anhand des Index von i 
                 this.img = this.imageCache[path];                                         // Wir setzen das aktuelle Bild (this.img) auf das zwischengespeicherte Bild aus dem Cache anhand des Bildpfads
                 this.currentImage++;                                                      // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
             }
-        },100);                                                                      // function wird alle 1000ms aufgerufen
+        },50);                                                                      // function wird alle 1000ms aufgerufen
         
     }
 
