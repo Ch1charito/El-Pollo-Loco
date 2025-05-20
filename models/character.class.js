@@ -11,7 +11,6 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
             'img/2_character_pepe/2_walk/W-25.png',
             'img/2_character_pepe/2_walk/W-26.png',
         ];
-    currentImage = 0;
     // #endregion
 
     constructor(){                              // wenn irgendwo jemand sagt new Character wird automatisch der constrcutor aufgerufen und alles in den geschweiften Klammern wird ausgeführt

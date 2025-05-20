@@ -7,6 +7,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     height = 150;
     width = 100;
     imageCache = {};                            // unser Bilderspeicher
+    currentImage = 0;
     
     // #endregion
 
