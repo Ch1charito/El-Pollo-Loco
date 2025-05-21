@@ -19,6 +19,7 @@ class World{
     canvas;
     ctx;
     keyboard;
+    camera_x = 0;                                           // eine variable mit der wir bestimmen um was sich unsere camera bewegen soll --> hier sage ich um wie viel ich den camra auschnitt an der x achse nach links oder nach rechts verschieben möchte
     // #endregion
 
     constructor(canvas, keyboard){
@@ -35,12 +36,14 @@ class World{
     }
 
     draw(){
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben 
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben
+        this.ctx.translate(this.camera_x, 0);                              // wir verschieben unseren ganzen ausschnitt(context->ctx) um 100px nach links
         /* this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height)      // mit this.character.img greifen wir auf des Bild unseres Characters zu ; pos1 = img, pos2= x position in canvas, pos3= yposition in canvas, pos4= breite und pos5=höhe */
         this.addObejctsToMap(this.backgroundObjects);                                                                                   // der hintergrund muss als erstes hinzugefügt werden weil es sonst überallen anderem ist wenn man es zuletzt hinzufügt
         this.addToMap(this.character);
         this.addObejctsToMap(this.enemies);
         this.addObejctsToMap(this.clouds);
+        this.ctx.translate(-this.camera_x, 0);                         // wir verschieben unseren ausschnitt wieder nachr rechts, der erste parameter ist die x achse der zweite die y achse
 
         self = this;                                    // draw wird immer wieder aufgerufen
         requestAnimationFrame(function(){
@@ -54,14 +57,16 @@ class World{
         });
     }
 
-    addToMap(mo){
+    addToMap(mo){                                                                 // paramter ist das movable object
         if(mo.otherDirection){                                                    // wir gucken ob das object das wir einfügen eine andere Richtung hat --> wenn ja dann->
             this.ctx.save();                                                      // wir speichern die aktuellen einstellungen von unserem ctx (context mit dem wir unsere bilder einfügen)
-            this.ctx.translate(mo.img.width, 0);                                  // wir verändern die methode wie wir unsere bilder einfügen
+            this.ctx.translate(mo.width, 0);                                  // wir verändern die methode wie wir unsere bilder einfügen
             this.ctx.scale(-1, 1);                                                // wir drehen alles an der y achse um --> wir spiegeln alles
+            mo.x = mo.x * -1;
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);              // wir erstellen eine function um diese immer auszuführen wenn wir etwas darstellen wollen  --> wir geben unsere bilder gespiegelt wieder
         if(mo.otherDirection){
+            mo.x = mo.x * -1;
             this.ctx.restore();                                                   // hier machen wie alles rückgänig was wir vorher wieder verändert haben --> die folgenden bilder sind wieder nicht gespiegelt
         }             
     }

@@ -34,7 +34,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                 this.x -= this.speed;
                 this.otherDirection = true;                                            // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true
             }
-
+            this.world.camera_x = -this.x;                                             // jedesmal wenn wir die x koodrinate von unserem character verschieben geben wir camera_x in der world den wert von der x position unserers chacarcter
         }, 1000 / 60);
 
         setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
