@@ -25,16 +25,16 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     animate(){                                                                        // eine function zum animieren unserers characters
 
         setInterval(() => {
-            if(this.world.keyboard.RIGHT){
+            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){         // wir sagen das der cahracter nicht weiter gehen kann als der angegebene wert aus levelendx der bei 700 liegt
                 this.x += this.speed;
                 this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
             }
 
-            if(this.world.keyboard.LEFT){
+            if(this.world.keyboard.LEFT && this.x > 0){                                 // mit x>0 sagen wir das er nur soweit laufen kann wenn x nicht 0 ist also es noch bild gibt
                 this.x -= this.speed;
                 this.otherDirection = true;                                            // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true
             }
-            this.world.camera_x = -this.x;                                             // jedesmal wenn wir die x koodrinate von unserem character verschieben geben wir camera_x in der world den wert von der x position unserers chacarcter
+            this.world.camera_x = -this.x + 100;                                             // jedesmal wenn wir die x koodrinate von unserem character verschieben geben wir camera_x in der world den wert von der x position unserers chacarcter
         }, 1000 / 60);
 
         setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms

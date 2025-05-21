@@ -3,6 +3,7 @@ class Level {
     enemies;
     clouds;
     backgroundObjects;
+    level_end_x = 700;                                  // eine variable mit der wir sagen wie weit unser character gehen kann
     //#endregion
 
     constructor(enemies, clouds, backgroundObjects){

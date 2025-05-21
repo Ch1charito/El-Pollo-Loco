@@ -1,6 +1,7 @@
 class World{
     // #region attributes
     character = new Character();                        // wir haben eine variable definiert und ihr ein Character objekt zugewiesen
+    level = level1;                                     // wir können nun auf alle variablen aus unserem level zugreifen
     enemies = level1.enemies;
     clouds = level1.clouds;
     backgroundObjects = level1.backgroundObjects;
@@ -27,10 +28,10 @@ class World{
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben
         this.ctx.translate(this.camera_x, 0);                              // wir verschieben unseren ganzen ausschnitt(context->ctx) um 100px nach links
         /* this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height)      // mit this.character.img greifen wir auf des Bild unseres Characters zu ; pos1 = img, pos2= x position in canvas, pos3= yposition in canvas, pos4= breite und pos5=höhe */
-        this.addObejctsToMap(this.backgroundObjects);                                                                                   // der hintergrund muss als erstes hinzugefügt werden weil es sonst überallen anderem ist wenn man es zuletzt hinzufügt
+        this.addObejctsToMap(this.level.backgroundObjects);                                                                                   // der hintergrund muss als erstes hinzugefügt werden weil es sonst überallen anderem ist wenn man es zuletzt hinzufügt
         this.addToMap(this.character);
-        this.addObejctsToMap(this.enemies);
-        this.addObejctsToMap(this.clouds);
+        this.addObejctsToMap(this.level.enemies);
+        this.addObejctsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);                         // wir verschieben unseren ausschnitt wieder nachr rechts, der erste parameter ist die x achse der zweite die y achse
 
         self = this;                                    // draw wird immer wieder aufgerufen
