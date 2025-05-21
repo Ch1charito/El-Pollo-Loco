@@ -9,7 +9,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     imageCache = {};                            // unser Bilderspeicher
     currentImage = 0;
     speed = 0.15;
-    
+    otherDirection = false;                     // eine variable mit der wir die richtung von unserem character bestimmen --> standardmäßig faalse weil wir nicht gespiegelt starten wollen
     // #endregion
 
     // #region methods

@@ -27,12 +27,18 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         setInterval(() => {
             if(this.world.keyboard.RIGHT){
                 this.x += this.speed;
+                this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
+            }
+
+            if(this.world.keyboard.LEFT){
+                this.x -= this.speed;
+                this.otherDirection = true;                                            // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true
             }
 
         }, 1000 / 60);
 
         setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
-            if(this.world.keyboard.RIGHT){                                            // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht
+            if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){                // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht --> entweder oder allso auch bei LEFT auf true
                 // walk animation
                 let i = this.currentImage % this.imagesWalking.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
                 // i = 1,2,3,4,5,0   => ist eine unendliche reihe
