@@ -30,6 +30,14 @@ class MovableObject{                            // eine Schablone mit der wir sa
         
     }
 
+    playAnimation(images){
+        let i = this.currentImage % this.imagesWalking.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
+        // i = 1,2,3,4,5,0   => ist eine unendliche reihe
+        let path = images[i];                                         // wir holen den Pfad zum aktuellen Bild aus dem Array imagesWalking anhand des Index von i 
+        this.img = this.imageCache[path];                                         // Wir setzen das aktuelle Bild (this.img) auf das zwischengespeicherte Bild aus dem Cache anhand des Bildpfads
+        this.currentImage++;
+    }
+
     moveRight() {
         console.log('moving right');
         

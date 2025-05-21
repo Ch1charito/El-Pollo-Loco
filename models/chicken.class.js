@@ -25,11 +25,7 @@ class Chicken extends MovableObject{                    // auch wenn Chicken lee
         this.moveLeft();
 
         setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
-            let i = this.currentImage % this.imagesWalking.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
-            // i = 1,2,3,4,5,0   => ist eine unendliche reihe
-            let path = this.imagesWalking[i];                                         // wir holen den Pfad zum aktuellen Bild aus dem Array imagesWalking anhand des Index von i 
-            this.img = this.imageCache[path];                                         // Wir setzen das aktuelle Bild (this.img) auf das zwischengespeicherte Bild aus dem Cache anhand des Bildpfads
-            this.currentImage++;                                                      // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
+            this.playAnimation(this.imagesWalking);                                                     // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
         },200);                                                                      // function wird alle 1000ms aufgerufen
         
     }
