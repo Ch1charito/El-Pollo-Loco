@@ -11,7 +11,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     speed = 0.15;
     otherDirection = false;                     // eine variable mit der wir die richtung von unserem character bestimmen --> standardmäßig faalse weil wir nicht gespiegelt starten wollen
     speedY = 0;                                 // eine geschwindigkeit auf der y achse --> wie schnell unser object nach unten fällt
-    acceleration = 1;                           // eine variable mit der wir sagen wie schnell unser object im Fallen beschleunigt wird
+    acceleration = 2.5;                           // eine variable mit der wir sagen wie schnell unser object im Fallen beschleunigt wird
     // #endregion
 
     // #region methods
@@ -54,7 +54,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     applyGravity(){                                                                     // eine function mit der wir eine gravitatino hinzufügen
         
         setInterval(() => {
-            if(this.isAboveGround()){                                                           // wir sagen er kann nur bis 180 runter fallen                                 
+            if(this.isAboveGround() || this.speedY > 0){                                                           // wir sagen er kann nur bis 180 runter fallen                                 
                 this.y -= this.speedY;                                                          // wir möchte von unserem y attribut etwas abziehen
                 this.speedY -= this.acceleration;
             }
@@ -62,7 +62,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
 
     }
     isAboveGround(){
-        return this.y < 150;
+        return this.y < 180;
     }
 
     // #endregion
