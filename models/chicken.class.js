@@ -22,7 +22,10 @@ class Chicken extends MovableObject{                    // auch wenn Chicken lee
 
     // #region methods
     animate(){                                                                        // eine function zum animieren unserers characters
-        this.moveLeft();
+        setInterval( () => {                                                            // mit setIntervall kann ich eine bestimmte function in einem bestimmten Zeitintervall wiederholen
+            this.moveLeft();                                                              
+        },1000 / 60); 
+        
 
         setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
             this.playAnimation(this.imagesWalking);                                                     // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1

@@ -41,14 +41,14 @@ class MovableObject{                            // eine Schablone mit der wir sa
     }
 
     moveRight() {
-        console.log('moving right');
+        this.x += this.speed;
+        this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
         
     }
 
     moveLeft(){
-        setInterval( () => {                                                            // mit setIntervall kann ich eine bestimmte function in einem bestimmten Zeitintervall wiederholen
-        this.x -= this.speed;                                                                 // 0.15 in dem fall px werden von der x koordinate im canvas abgezogen
-        },1000 / 60)                                                                    // 60 fps => frames pro sekunde --> die functino wird 60 mal pro sekunde aufgerufen
+        this.x -= this.speed;
+        this.otherDirection = true;                                            // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true                                                                  
     }
 
     applyGravity(){                                                                     // eine function mit der wir eine gravitatino hinzufügen
@@ -59,11 +59,17 @@ class MovableObject{                            // eine Schablone mit der wir sa
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);                                                                  // diese function soll 25 mal pro sekunde aufgerufen werden
-
     }
+
+
     isAboveGround(){
         return this.y < 180;
     }
+
+    jump(){
+        this.speedY = 30;
+    }
+
 
     // #endregion
 }
