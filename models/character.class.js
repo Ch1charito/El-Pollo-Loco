@@ -2,7 +2,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
 
     // #region attributes
     height = 280;
-    y = 155;
+    y = 80;
     speed = 10;
     imagesWalking = [                                                             
             'img/2_character_pepe/2_walk/W-21.png',                                   // wir fügen unserem bildspiecer (JSON imageCache) einmal den path und eine value mit dem path hinzu
@@ -18,6 +18,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     constructor(){                              // wenn irgendwo jemand sagt new Character wird automatisch der constrcutor aufgerufen und alles in den geschweiften Klammern wird ausgeführt
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');                    // mit super greifen wir auf die function aus der übergeordneten class movable objects zu
         this.loadImages(this.imagesWalking);                                          // super müssen wir nur einmal machen danch können wir mit this arbeiten sobald ein character erstellt wird wird diese function aufgerufen
+        this.applyGravity();
         this.animate();                                                               // wir rufen die function anmiate auf die den character animieren soll
     }
 

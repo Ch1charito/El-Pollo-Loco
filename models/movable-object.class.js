@@ -10,6 +10,8 @@ class MovableObject{                            // eine Schablone mit der wir sa
     currentImage = 0;
     speed = 0.15;
     otherDirection = false;                     // eine variable mit der wir die richtung von unserem character bestimmen --> standardmäßig faalse weil wir nicht gespiegelt starten wollen
+    speedY = 0;                                 // eine geschwindigkeit auf der y achse --> wie schnell unser object nach unten fällt
+    acceleration = 1;                           // eine variable mit der wir sagen wie schnell unser object im Fallen beschleunigt wird
     // #endregion
 
     // #region methods
@@ -47,6 +49,20 @@ class MovableObject{                            // eine Schablone mit der wir sa
         setInterval( () => {                                                            // mit setIntervall kann ich eine bestimmte function in einem bestimmten Zeitintervall wiederholen
         this.x -= this.speed;                                                                 // 0.15 in dem fall px werden von der x koordinate im canvas abgezogen
         },1000 / 60)                                                                    // 60 fps => frames pro sekunde --> die functino wird 60 mal pro sekunde aufgerufen
+    }
+
+    applyGravity(){                                                                     // eine function mit der wir eine gravitatino hinzufügen
+        
+        setInterval(() => {
+            if(this.isAboveGround()){                                                           // wir sagen er kann nur bis 180 runter fallen                                 
+                this.y -= this.speedY;                                                          // wir möchte von unserem y attribut etwas abziehen
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);                                                                  // diese function soll 25 mal pro sekunde aufgerufen werden
+
+    }
+    isAboveGround(){
+        return this.y < 150;
     }
 
     // #endregion

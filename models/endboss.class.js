@@ -1,6 +1,9 @@
 class Endboss extends MovableObject {
 
     //#region attributes
+    height = 400;                                               // größe des engegners 
+    width = 250;
+    y = 55;                                                    // position auf der y achse ab der gezeichnet werden soll
 
     imagesWalking = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -20,7 +23,7 @@ class Endboss extends MovableObject {
     constructor(){
         super().loadImage(this.imagesWalking[0]); 
         this.loadImages(this.imagesWalking);
-        this.x = 700;
+        this.x = 2500;
         this.animate();
     }
 
