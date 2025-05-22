@@ -41,14 +41,11 @@ class MovableObject{                            // eine Schablone mit der wir sa
     }
 
     moveRight() {
-        this.x += this.speed;
-        this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
-        
+        this.x += this.speed;                                         
     }
 
     moveLeft(){
-        this.x -= this.speed;
-        this.otherDirection = true;                                            // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true                                                                  
+        this.x -= this.speed;                                                                  
     }
 
     applyGravity(){                                                                     // eine function mit der wir eine gravitatino hinzufügen

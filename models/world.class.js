@@ -54,6 +54,15 @@ class World{
             mo.x = mo.x * -1;
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);              // wir erstellen eine function um diese immer auszuführen wenn wir etwas darstellen wollen  --> wir geben unsere bilder gespiegelt wieder
+        
+        this.ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
+        this.ctx.lineWidth = '5';
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.rect(mo.x, mo.y, mo.x + mo.width, mo.y + mo.height,);
+        this.ctx.stroke();
+        
+        
+        
         if(mo.otherDirection){
             mo.x = mo.x * -1;
             this.ctx.restore();                                                   // hier machen wie alles rückgänig was wir vorher wieder verändert haben --> die folgenden bilder sind wieder nicht gespiegelt

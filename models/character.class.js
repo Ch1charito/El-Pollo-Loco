@@ -40,10 +40,12 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         setInterval(() => {
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){         // wir sagen das der cahracter nicht weiter gehen kann als der angegebene wert aus levelendx der bei 700 liegt
                 this.moveRight();
+                this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
             }
 
             if(this.world.keyboard.LEFT && this.x > 0){                                 // mit x>0 sagen wir das er nur soweit laufen kann wenn x nicht 0 ist also es noch bild gibt
                 this.moveLeft();
+                this.otherDirection = true;                                             // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true  
             }
 
             
