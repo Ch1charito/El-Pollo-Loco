@@ -38,6 +38,15 @@ class MovableObject{                            // eine Schablone mit der wir sa
         
     }
 
+    // eine function um zu checken ob die objecte miteinander kolidieren  um zu schauen ob character und chicken collidieren character.isColliding(chicken)
+    isColliding(mo){
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
+    }
+
+
     loadImages(arr){                            // parameter ist der array an bildern die wir hinzugüfen wollen --> die function läuft solange wie viele bilder wir hinzufügen wollen
         arr.forEach((path) => {                 // wir gehen durch dieses array durch
             let img = new Image();              // wir legen eine variable an mit einem neuen Bild
