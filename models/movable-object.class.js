@@ -54,6 +54,10 @@ class MovableObject{                            // eine Schablone mit der wir sa
         }
     }
 
+    isDead(){                           // eine function um rauszufinden ob unser character oder ein anderer object tot ist oder nicht energy=0
+        return this.energy == 0;        // returned true or false
+    }
+
 
     loadImages(arr){                            // parameter ist der array an bildern die wir hinzugüfen wollen --> die function läuft solange wie viele bilder wir hinzufügen wollen
         arr.forEach((path) => {                 // wir gehen durch dieses array durch
