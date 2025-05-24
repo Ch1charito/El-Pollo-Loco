@@ -23,6 +23,15 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         'img/2_character_pepe/3_jump/J-38.png',
         'img/2_character_pepe/3_jump/J-39.png',
     ];
+    imagesDead = [
+        'img/2_character_pepe/5_dead/D-51.png',
+        'img/2_character_pepe/5_dead/D-52.png',
+        'img/2_character_pepe/5_dead/D-53.png',
+        'img/2_character_pepe/5_dead/D-54.png',
+        'img/2_character_pepe/5_dead/D-55.png',
+        'img/2_character_pepe/5_dead/D-56.png',
+        'img/2_character_pepe/5_dead/D-57.png',
+    ];
     world;
     // #endregion
 
@@ -30,6 +39,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');                    // mit super greifen wir auf die function aus der übergeordneten class movable objects zu
         this.loadImages(this.imagesWalking);                                          // super müssen wir nur einmal machen danch können wir mit this arbeiten sobald ein character erstellt wird wird diese function aufgerufen
         this.loadImages(this.imagesJumping);
+        this.loadImages(this.imagesDead);                                             // wir laden die bilder für die aniation wenn er tot ist
         this.applyGravity();
         this.animate();                                                               // wir rufen die function anmiate auf die den character animieren soll
     }
@@ -58,7 +68,9 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
 
         setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
             
-            if(this.isAboveGround()){
+            if(this.isDead()){                                                          // wenn der character tot ist zeigen wir diese grafiken an und sonst andere
+                this.playAnimation(this.imagesDead);
+            } else if(this.isAboveGround()){
                 this.playAnimation(this.imagesJumping);
             } else {
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){                // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht --> entweder oder allso auch bei LEFT auf true
