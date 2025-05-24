@@ -12,6 +12,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     otherDirection = false;                     // eine variable mit der wir die richtung von unserem character bestimmen --> standardmäßig faalse weil wir nicht gespiegelt starten wollen
     speedY = 0;                                 // eine geschwindigkeit auf der y achse --> wie schnell unser object nach unten fällt
     acceleration = 2.5;                           // eine variable mit der wir sagen wie schnell unser object im Fallen beschleunigt wird
+    energy = 100;                               // unsere hp also volles leben
     // #endregion
 
     // #region methods
@@ -44,6 +45,13 @@ class MovableObject{                            // eine Schablone mit der wir sa
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
+    }
+
+    hit(){
+        this.energy -= 5;                // sobald wir mit dem object chicken collidiren wird unseren character ernergy minus 2 gemacht also 2 hp abgezogen
+        if(this.energy < 0){             // wenn es kleiner als 0  sein würde geben wir einfach den wert 0 damit es nicht kleiner als 0 werden kann
+            this.energy = 0;
+        }
     }
 
 

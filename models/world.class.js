@@ -17,11 +17,23 @@ class World{
         this.keyboard = keyboard;
         this.draw();                                    // beim erstelen der neuen Welt wird der constructor aufgerufen und somit auch draw mit der wir pepe darstellen können beim erstellen einer welt -> init function
         this.setWorld();
+        this.checkCollisions();                         
     }
 
     // #region methods
     setWorld(){
         this.character.world = this;                   // ich übergebe die akutelle instanz mit this
+    }
+
+    checkCollisions(){
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {            // diese function wird jede sekunde einmal für alle gegner ausgeführt
+                if(this.character.isColliding(enemy)) {
+                    this.character.hit();                      // function mit der wir leben abziehen --> energy
+                    console.log('Collision with Character, energy', this.character.energy);
+                } 
+            });
+        }, 200);
     }
 
     draw(){
