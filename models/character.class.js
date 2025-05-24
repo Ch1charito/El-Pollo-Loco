@@ -32,6 +32,11 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         'img/2_character_pepe/5_dead/D-56.png',
         'img/2_character_pepe/5_dead/D-57.png',
     ];
+    imagesHurt = [
+        'img/2_character_pepe/4_hurt/H-41.png',
+        'img/2_character_pepe/4_hurt/H-42.png',
+        'img/2_character_pepe/4_hurt/H-43.png',
+    ];
     world;
     // #endregion
 
@@ -40,6 +45,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         this.loadImages(this.imagesWalking);                                          // super müssen wir nur einmal machen danch können wir mit this arbeiten sobald ein character erstellt wird wird diese function aufgerufen
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);                                             // wir laden die bilder für die aniation wenn er tot ist
+        this.loadImages(this.imagesHurt);
         this.applyGravity();
         this.animate();                                                               // wir rufen die function anmiate auf die den character animieren soll
     }
@@ -70,7 +76,9 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
             
             if(this.isDead()){                                                          // wenn der character tot ist zeigen wir diese grafiken an und sonst andere
                 this.playAnimation(this.imagesDead);
-            } else if(this.isAboveGround()){
+            } else if (this.isHurt()){
+                this.playAnimation(this.imagesHurt);                                    // wenn der character sich verletzt werden diese bilder in der animtaion abgespielt
+            }else if(this.isAboveGround()){
                 this.playAnimation(this.imagesJumping);
             } else {
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){                // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht --> entweder oder allso auch bei LEFT auf true

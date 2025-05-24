@@ -13,6 +13,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     speedY = 0;                                 // eine geschwindigkeit auf der y achse --> wie schnell unser object nach unten fällt
     acceleration = 2.5;                           // eine variable mit der wir sagen wie schnell unser object im Fallen beschleunigt wird
     energy = 100;                               // unsere hp also volles leben
+    lastHit = 0;
     // #endregion
 
     // #region methods
@@ -51,11 +52,19 @@ class MovableObject{                            // eine Schablone mit der wir sa
         this.energy -= 5;                // sobald wir mit dem object chicken collidiren wird unseren character ernergy minus 2 gemacht also 2 hp abgezogen
         if(this.energy < 0){             // wenn es kleiner als 0  sein würde geben wir einfach den wert 0 damit es nicht kleiner als 0 werden kann
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();        // so speichern wir zeit in zahlenform
         }
     }
 
     isDead(){                           // eine function um rauszufinden ob unser character oder ein anderer object tot ist oder nicht energy=0
         return this.energy == 0;        // returned true or false
+    }
+
+    isHurt(){                           // eine function um zu sagen das unser character verletzt ist
+        let timePassed = new Date().getTime() - this.lastHit;       // millisekunden seit dem 01.01.1970 bis aktuell - den letzten hit --> die differenz in milliesekunden
+        timePassed = timePassed / 1000;     // wert von millisekunden in sekunden umgewandelt
+        return timePassed < 1;              // wenn wir innerhalb der letzten  sekunde getroffen wurden wird das ergebnis als true zurückgegeben
     }
 
 
@@ -69,7 +78,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     }
 
     playAnimation(images){
-        let i = this.currentImage % this.imagesWalking.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
+        let i = this.currentImage % images.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
         // i = 1,2,3,4,5,0   => ist eine unendliche reihe
         let path = images[i];                                         // wir holen den Pfad zum aktuellen Bild aus dem Array imagesWalking anhand des Index von i 
         this.img = this.imageCache[path];                                         // Wir setzen das aktuelle Bild (this.img) auf das zwischengespeicherte Bild aus dem Cache anhand des Bildpfads
