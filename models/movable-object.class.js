@@ -75,7 +75,11 @@ class MovableObject extends DrawableObject{                            // eine S
 
 
     isAboveGround(){
-        return this.y < 180;
+        if(this instanceof ThrowableObject){                                        // damit sorgen wir daüf rdas das throwabale object aus dem bild rausfallen kann und nicht auf der höhe 180 von y stehen bleibt
+            return true;
+        }else {
+            return this.y < 180;
+        }
     }
 
     jump(){

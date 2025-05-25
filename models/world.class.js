@@ -10,7 +10,7 @@ class World{
     keyboard;
     camera_x = 0;                                           // eine variable mit der wir bestimmen um was sich unsere camera bewegen soll --> hier sage ich um wie viel ich den camra auschnitt an der x achse nach links oder nach rechts verschieben möchte
     statusbar = new Statusbar;
-    throwableObjects = [new ThrowableObject()];
+    throwableObjects = [];
     // #endregion
 
     constructor(canvas, keyboard){
@@ -19,7 +19,7 @@ class World{
         this.keyboard = keyboard;
         this.draw();                                    // beim erstelen der neuen Welt wird der constructor aufgerufen und somit auch draw mit der wir pepe darstellen können beim erstellen einer welt -> init function
         this.setWorld();
-        this.checkCollisions();                         
+        this.run();                         
     }
 
     // #region methods
@@ -27,15 +27,29 @@ class World{
         this.character.world = this;                   // ich übergebe die akutelle instanz mit this
     }
 
-    checkCollisions(){
+    run(){                                              // diese function wird während dem spiel dauerhaft ausgeführt und hier werden meherer sachen geprüft
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {            // diese function wird jede sekunde einmal für alle gegner ausgeführt
+
+            // check collision
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 200);
+    }
+
+    checkThrowObjects(){
+        if(this.keyboard.D){
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);           // der punkt von wo die flasche geworfen wird
+            this.throwableObjects.push(bottle);
+        }
+    }
+
+    checkCollisions(){
+        this.level.enemies.forEach((enemy) => {            // diese function wird jede sekunde einmal für alle gegner ausgeführt
                 if(this.character.isColliding(enemy)) {
                     this.character.hit();                      // function mit der wir leben abziehen --> energy
                     this.statusbar.setPercentage(this.character.energy);        // ich gebe die percenteage weiter anhand des energy des characters und verändere so das bild der statusbar
                 } 
-            });
-        }, 200);
+        });
     }
 
     draw(){
