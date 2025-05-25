@@ -1,13 +1,6 @@
-class MovableObject{                            // eine Schablone mit der wir sagen welche Felder drin sein sollen
+class MovableObject extends DrawableObject{                            // eine Schablone mit der wir sagen welche Felder drin sein sollen
 
     // #region attributes
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
-    imageCache = {};                            // unser Bilderspeicher
-    currentImage = 0;
     speed = 0.15;
     otherDirection = false;                     // eine variable mit der wir die richtung von unserem character bestimmen --> standardmäßig faalse weil wir nicht gespiegelt starten wollen
     speedY = 0;                                 // eine geschwindigkeit auf der y achse --> wie schnell unser object nach unten fällt
@@ -19,15 +12,9 @@ class MovableObject{                            // eine Schablone mit der wir sa
     // #region methods
 
 
-    //loadImage('img/test.png'); = der aufruf der methode mit der wir dann die src bestimmen und dem img den src wert zuweisen
-    loadImage(path){
-        this.img = new Image();                 // image ist ein objekt was wir in javascript haben this.img = document.getElementById('iamge') <img id="image" src>
-        this.img.src = path;
-    }
+    
 
-    draw(ctx){                                  // parameter ist der context ctx mit dem wir das ganze zeichnen wollen
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);              // wir erstellen eine function um diese immer auszuführen wenn wir etwas darstellen wollen  --> wir geben unsere bilder gespiegelt wieder
-    }
+    
 
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
@@ -68,14 +55,7 @@ class MovableObject{                            // eine Schablone mit der wir sa
     }
 
 
-    loadImages(arr){                            // parameter ist der array an bildern die wir hinzugüfen wollen --> die function läuft solange wie viele bilder wir hinzufügen wollen
-        arr.forEach((path) => {                 // wir gehen durch dieses array durch
-            let img = new Image();              // wir legen eine variable an mit einem neuen Bild
-            img.src = path;                     // wir laden das Bild nun in das Image Objekt rein
-            this.imageCache[path] = img;       // wir updaten unseren image cache und fügen ihm die bilder hinzu 
-        });
-        
-    }
+    
 
     playAnimation(images){
         let i = this.currentImage % images.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
