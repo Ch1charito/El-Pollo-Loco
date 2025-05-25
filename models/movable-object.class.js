@@ -16,17 +16,6 @@ class MovableObject extends DrawableObject{                            // eine S
 
     
 
-    drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
-            ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-        
-    }
-
     // eine function um zu checken ob die objecte miteinander kolidieren  um zu schauen ob character und chicken collidieren character.isColliding(chicken)
     isColliding(mo){
         return this.x + this.width > mo.x &&

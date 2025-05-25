@@ -14,7 +14,13 @@ class Statusbar extends DrawableObject{
     //#endregion
 
     constructor(){                                                      // der constructor wird bei jeder instanzierung automatisch aufgerufen
+        super();
         this.loadImages(this.imagesHealth);
+        this.x = 40;
+        this.y = 0;
+        this.width = 200;
+        this.height = 60;
+        this.setPercentage(100);                                        // damit die statur bar standardmäßig 100 prozent hat
 
     }
 

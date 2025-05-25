@@ -9,6 +9,7 @@ class World{
     ctx;
     keyboard;
     camera_x = 0;                                           // eine variable mit der wir bestimmen um was sich unsere camera bewegen soll --> hier sage ich um wie viel ich den camra auschnitt an der x achse nach links oder nach rechts verschieben möchte
+    statusbar = new Statusbar;
     // #endregion
 
     constructor(canvas, keyboard){
@@ -30,7 +31,7 @@ class World{
             this.level.enemies.forEach((enemy) => {            // diese function wird jede sekunde einmal für alle gegner ausgeführt
                 if(this.character.isColliding(enemy)) {
                     this.character.hit();                      // function mit der wir leben abziehen --> energy
-                    console.log('Collision with Character, energy', this.character.energy);
+                    this.statusbar.setPercentage(this.character.energy);        // ich gebe die percenteage weiter anhand des energy des characters und verändere so das bild der statusbar
                 } 
             });
         }, 200);
@@ -41,6 +42,11 @@ class World{
         this.ctx.translate(this.camera_x, 0);                              // wir verschieben unseren ganzen ausschnitt(context->ctx) um 100px nach links
         /* this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height)      // mit this.character.img greifen wir auf des Bild unseres Characters zu ; pos1 = img, pos2= x position in canvas, pos3= yposition in canvas, pos4= breite und pos5=höhe */
         this.addObejctsToMap(this.level.backgroundObjects);                                                                                   // der hintergrund muss als erstes hinzugefügt werden weil es sonst überallen anderem ist wenn man es zuletzt hinzufügt
+        
+        this.ctx.translate(-this.camera_x, 0);                              // back --> back und forwards um ein object zu fixen
+        this.addToMap(this.statusbar);                                      // wir fügen der map statusbar hinzu
+        this.ctx.translate(this.camera_x, 0);                               // forwards
+
         this.addToMap(this.character);
         this.addObejctsToMap(this.level.enemies);
         this.addObejctsToMap(this.level.clouds);
