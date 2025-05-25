@@ -15,6 +15,7 @@ class MovableObject extends DrawableObject{                            // eine S
     
 
     
+    
 
     // eine function um zu checken ob die objecte miteinander kolidieren  um zu schauen ob character und chicken collidieren character.isColliding(chicken)
     isColliding(mo){

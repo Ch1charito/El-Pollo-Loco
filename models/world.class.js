@@ -10,6 +10,7 @@ class World{
     keyboard;
     camera_x = 0;                                           // eine variable mit der wir bestimmen um was sich unsere camera bewegen soll --> hier sage ich um wie viel ich den camra auschnitt an der x achse nach links oder nach rechts verschieben möchte
     statusbar = new Statusbar;
+    throwableObjects = [new ThrowableObject()];
     // #endregion
 
     constructor(canvas, keyboard){
@@ -50,6 +51,8 @@ class World{
         this.addToMap(this.character);
         this.addObejctsToMap(this.level.enemies);
         this.addObejctsToMap(this.level.clouds);
+        this.addObejctsToMap(this.throwableObjects);
+
         this.ctx.translate(-this.camera_x, 0);                         // wir verschieben unseren ausschnitt wieder nachr rechts, der erste parameter ist die x achse der zweite die y achse
 
         self = this;                                    // draw wird immer wieder aufgerufen
