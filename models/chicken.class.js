@@ -4,10 +4,7 @@ class Chicken extends MovableObject{                    // auch wenn Chicken lee
     y = 360;
     height = 70;
     width = 70;
-    imagesWalking = ['img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
-    ]
+    imagesWalking = ImagesHub.chicken.walking;
 
     // #endregion
 
