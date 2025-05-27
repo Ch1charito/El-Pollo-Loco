@@ -9,6 +9,12 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     imagesDead = ImagesHub.character.dead;
     imagesHurt = ImagesHub.character.hurt;
     world;
+    offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision bei pepe zu benutzen
+        top : 95,
+        right : 25,
+        bottom : 10,
+        left : 20
+    }
     // #endregion
 
     constructor(){                              // wenn irgendwo jemand sagt new Character wird automatisch der constrcutor aufgerufen und alles in den geschweiften Klammern wird ausgeführt
@@ -62,6 +68,21 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
             
         },50);                                                                      // function wird alle 1000ms aufgerufen
         
+    }
+
+    drawRealFrame(ctx){
+        if (this instanceof Character){               
+            ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            ctx.rect(
+                this.x + this.offSett.left,
+                this.y + this.offSett.top,
+                this.width - this.offSett.left - this.offSett.right,
+                this.height - this.offSett.top - this.offSett.bottom
+            );
+            ctx.stroke();
+        }
     }
 
     // #endregion

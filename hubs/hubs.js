@@ -1,4 +1,7 @@
+
+//#region imageshub
 class ImagesHub {
+    //#region chicken
     static chicken = {
         walking : [
             'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -6,7 +9,9 @@ class ImagesHub {
             'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
         ]
     }
+    //#endregion
 
+    //#region character
     static character = {
         walking : [
             'img/2_character_pepe/2_walk/W-21.png',                                   // wir fügen unserem bildspiecer (JSON imageCache) einmal den path und eine value mit dem path hinzu
@@ -41,6 +46,23 @@ class ImagesHub {
             'img/2_character_pepe/4_hurt/H-42.png',
             'img/2_character_pepe/4_hurt/H-43.png',
         ],
+    }
+    //#endregion
+}
+//#endregion
 
+
+//#region intervalhub
+class IntervalHub {
+    static allIntervals = [];
+
+    static startInterval(func, timer){
+        const newInterval = setInterval(func, timer);
+        IntervalHub.allIntervals.push(newInterval);
+    }
+
+    static stopAllIntervals(){
+        IntervalHub.allIntervals.forEach(clearInterval);
     }
 }
+//#endregion

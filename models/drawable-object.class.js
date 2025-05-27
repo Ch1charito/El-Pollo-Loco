@@ -33,6 +33,21 @@ class DrawableObject {
         
     }
 
+    drawRealFrame(ctx){                                                          // eine function um einen angepassten kleieneren ramen zu zeichnen
+        if (this instanceof Character){               
+            ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            ctx.rect(
+                this.x + this.offSett.left,
+                this.y + this.offSett.top,
+                this.width - this.offSett.left - this.offSett.right,
+                this.height - this.offSett.top - this.offSett.bottom
+            );
+            ctx.stroke();
+        }
+    }
+
     loadImages(arr){                            // parameter ist der array an bildern die wir hinzugüfen wollen --> die function läuft solange wie viele bilder wir hinzufügen wollen
         arr.forEach((path) => {                 // wir gehen durch dieses array durch
             let img = new Image();              // wir legen eine variable an mit einem neuen Bild
