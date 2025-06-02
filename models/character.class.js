@@ -12,7 +12,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     imagesIdle = ImagesHub.character.idle;
     world;
     offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision bei pepe zu benutzen
-        top : 95,
+        top : 110,
         right : 25,
         bottom : 10,
         left : 20

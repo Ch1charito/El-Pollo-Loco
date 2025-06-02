@@ -1,5 +1,11 @@
 class Coin extends DrawableObject {
 
+    offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision zu benutzen
+        top : 60,
+        right : 60,
+        bottom : 60,
+        left : 60
+    }
 
 
 

@@ -18,12 +18,20 @@ class MovableObject extends DrawableObject{                            // eine S
     
 
     // eine function um zu checken ob die objecte miteinander kolidieren  um zu schauen ob character und chicken collidieren character.isColliding(chicken)
-    isColliding(mo){
+    /* isColliding(mo){
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
+    } */
+    isColliding(mo){
+        return this.x + this.offSett.left + this.width - this.offSett.right - this.offSett.left > mo.x + mo.offSett.left &&
+        this.y + this.offSett.top + this.height - this.offSett.top - this.offSett.bottom > mo.y + mo.offSett.top &&
+        this.x + this.offSett.left < mo.x + mo.offSett.left + mo.width - mo.offSett.left - mo.offSett.right &&
+        this.y + this.offSett.top < mo.y + mo.offSett.top + mo.height - mo.offSett.top - mo.offSett.bottom;    
     }
+
+
 
     hit(){
         this.energy -= 5;                // sobald wir mit dem object chicken collidiren wird unseren character ernergy minus 2 gemacht also 2 hp abgezogen

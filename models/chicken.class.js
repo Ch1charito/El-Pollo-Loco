@@ -6,6 +6,12 @@ class Chicken extends MovableObject{                    // auch wenn Chicken lee
     width = 70;
     imagesWalking = ImagesHub.chicken.walking;
     imagesDead = ImagesHub.chicken.dead;                // das bild für die toten chicken
+    offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision zu benutzen
+        top : 10,
+        right : 10,
+        bottom : 10,
+        left : 10
+    }
 
     // #endregion
 

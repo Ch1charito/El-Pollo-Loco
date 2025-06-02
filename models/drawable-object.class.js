@@ -23,7 +23,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall || this instanceof Coin){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
             ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
@@ -34,9 +34,9 @@ class DrawableObject {
     }
 
     drawRealFrame(ctx){                                                          // eine function um einen angepassten kleieneren ramen zu zeichnen
-        if (this instanceof Character || this instanceof Endboss){               
+        if (this instanceof Character || this instanceof Endboss || this instanceof Coin || this instanceof Chicken || this instanceof ChickenSmall){               
             ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
-            ctx.lineWidth = '5';
+            ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
             ctx.rect(
                 this.x + this.offSett.left,

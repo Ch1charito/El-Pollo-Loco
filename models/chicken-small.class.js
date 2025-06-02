@@ -5,6 +5,12 @@ class ChickenSmall extends MovableObject{
     width = 40;
     imagesWalking = ImagesHub.smallChicken.walking;
     imagesDead = ImagesHub.smallChicken.dead;
+    offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision zu benutzen
+        top : 10,
+        right : 10,
+        bottom : 10,
+        left : 10
+    }
     //#endregion
 
     constructor(){                              // wenn irgendwo jemand sagt new Character wird automatisch der constrcutor aufgerufen und alles in den geschweiften Klammern wird ausgeführt
