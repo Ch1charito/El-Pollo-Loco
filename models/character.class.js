@@ -8,6 +8,8 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     imagesJumping = ImagesHub.character.jumping;
     imagesDead = ImagesHub.character.dead;
     imagesHurt = ImagesHub.character.hurt;
+    imagesStanding = ImagesHub.character.standing;
+    imagesIdle = ImagesHub.character.idle;
     world;
     offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision bei pepe zu benutzen
         top : 95,
@@ -23,6 +25,8 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);                                             // wir laden die bilder für die aniation wenn er tot ist
         this.loadImages(this.imagesHurt);
+        this.loadImages(this.imagesStanding);
+        this.loadImages(this.imagesIdle);
         this.applyGravity();
         this.animate();                                                               // wir rufen die function anmiate auf die den character animieren soll
     }
@@ -61,6 +65,8 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){                // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht --> entweder oder allso auch bei LEFT auf true
                 // walk animation
                 this.playAnimation(this.imagesWalking);                                                     // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
+                } else {
+                    this.playAnimation(this.imagesIdle);                                    // die standard idle animation die immer gegebn ist
                 }
             }
 
