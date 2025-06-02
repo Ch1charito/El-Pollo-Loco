@@ -3,12 +3,14 @@ class Level {
     enemies;
     clouds;
     backgroundObjects;
+    coins;
     level_end_x = 2200;                                  // eine variable mit der wir sagen wie weit unser character gehen kann
     //#endregion
 
-    constructor(enemies, clouds, backgroundObjects){
+    constructor(enemies, clouds, backgroundObjects, coins){
         this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
+        this.coins = coins;
     }
 }

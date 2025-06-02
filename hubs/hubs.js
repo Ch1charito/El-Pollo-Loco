@@ -15,7 +15,7 @@ class ImagesHub {
     //#endregion
 
     //#region small Chicken
-    static smallChicken ={
+    static smallChicken = {
         walking : [
             'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
             'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -25,10 +25,8 @@ class ImagesHub {
             'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
         ],
     }
-
-
-
     //#endregion
+
 
     //#region character
     static character = {

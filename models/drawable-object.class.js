@@ -23,7 +23,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
             ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

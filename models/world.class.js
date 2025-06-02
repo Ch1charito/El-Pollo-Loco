@@ -4,12 +4,14 @@ class World{
     level = level1;                                     // wir können nun auf alle variablen aus unserem level zugreifen
     enemies = level1.enemies;
     clouds = level1.clouds;
+    coins = level1.coins;
     backgroundObjects = level1.backgroundObjects;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;                                           // eine variable mit der wir bestimmen um was sich unsere camera bewegen soll --> hier sage ich um wie viel ich den camra auschnitt an der x achse nach links oder nach rechts verschieben möchte
     statusbar = new Statusbar;
+    /* coin = new Coin */;
     throwableObjects = [];
     // #endregion
 
@@ -62,10 +64,12 @@ class World{
         this.addToMap(this.statusbar);                                      // wir fügen der map statusbar hinzu
         this.ctx.translate(this.camera_x, 0);                               // forwards
 
-        this.addToMap(this.character);
+        
         this.addObejctsToMap(this.level.enemies);
         this.addObejctsToMap(this.level.clouds);
+        this.addObejctsToMap(this.coins);
         this.addObejctsToMap(this.throwableObjects);
+        this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);                         // wir verschieben unseren ausschnitt wieder nachr rechts, der erste parameter ist die x achse der zweite die y achse
 
