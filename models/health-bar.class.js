@@ -1,13 +1,6 @@
-class Statusbar extends DrawableObject{
+class Healthbar extends DrawableObject{
     //#region attributes
-    imagesHealth = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',   //0
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png', // 5
-    ];
+    imagesHealth = ImagesHub.statusbar.health;
 
     percentage = 100;                                                   // startpunkt healthbar
 
@@ -21,7 +14,6 @@ class Statusbar extends DrawableObject{
         this.width = 200;
         this.height = 60;
         this.setPercentage(100);                                        // damit die statur bar standardmäßig 100 prozent hat
-
     }
 
     setPercentage(percentage){                                                    // eine function die die percentage der health statusbar verändern soll --> setPercentage(50) leben status healthbar ist bei 50 prozent

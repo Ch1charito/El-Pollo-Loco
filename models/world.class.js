@@ -10,7 +10,8 @@ class World{
     ctx;
     keyboard;
     camera_x = 0;                                           // eine variable mit der wir bestimmen um was sich unsere camera bewegen soll --> hier sage ich um wie viel ich den camra auschnitt an der x achse nach links oder nach rechts verschieben möchte
-    statusbar = new Statusbar;
+    healthbar = new Healthbar;
+    coinbar = new Coinbar;
     /* coin = new Coin */;
     throwableObjects = [];
     // #endregion
@@ -49,7 +50,7 @@ class World{
         this.level.enemies.forEach((enemy) => {            // diese function wird jede sekunde einmal für alle gegner ausgeführt
                 if(this.character.isColliding(enemy)) {
                     this.character.hit();                      // function mit der wir leben abziehen --> energy
-                    this.statusbar.setPercentage(this.character.energy);        // ich gebe die percenteage weiter anhand des energy des characters und verändere so das bild der statusbar
+                    this.healthbar.setPercentage(this.character.energy);        // ich gebe die percenteage weiter anhand des energy des characters und verändere so das bild der statusbar
                 } 
         });
     }
@@ -61,7 +62,8 @@ class World{
         this.addObejctsToMap(this.level.backgroundObjects);                                                                                   // der hintergrund muss als erstes hinzugefügt werden weil es sonst überallen anderem ist wenn man es zuletzt hinzufügt
         
         this.ctx.translate(-this.camera_x, 0);                              // back --> back und forwards um ein object zu fixen
-        this.addToMap(this.statusbar);                                      // wir fügen der map statusbar hinzu
+        this.addToMap(this.healthbar);                                      // wir fügen der map statusbar hinzu
+        this.addToMap(this.coinbar);
         this.ctx.translate(this.camera_x, 0);                               // forwards
 
         
