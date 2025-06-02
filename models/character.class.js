@@ -17,6 +17,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         bottom : 10,
         left : 20
     }
+    idleTime = 0;                                   // Zeit ohne Bewegung in Millisekunden
     // #endregion
 
     constructor(){                              // wenn irgendwo jemand sagt new Character wird automatisch der constrcutor aufgerufen und alles in den geschweiften Klammern wird ausgeführt
@@ -35,22 +36,34 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     animate(){                                                                        // eine function zum animieren unserers characters
 
         setInterval(() => {
+
+            let isMoving = false;                                                       // der zustand ob man sich aktuell bewegt oder nicht
+
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){         // wir sagen das der cahracter nicht weiter gehen kann als der angegebene wert aus levelendx der bei 700 liegt
                 this.moveRight();
                 this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
+                isMoving = true;
             }
 
             if(this.world.keyboard.LEFT && this.x > 0){                                 // mit x>0 sagen wir das er nur soweit laufen kann wenn x nicht 0 ist also es noch bild gibt
                 this.moveLeft();
                 this.otherDirection = true;                                             // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true  
+                isMoving = true;
             }
 
             
             if(this.world.keyboard.SPACE && !this.isAboveGround()){                        // wenn wir die taste nach oben drücken und der character ist nicht auf dem boden
                 this.jump();                                                            // --> dann springe
+                isMoving = true;
             }
 
             this.world.camera_x = -this.x + 100;                                             // jedesmal wenn wir die x koodrinate von unserem character verschieben geben wir camera_x in der world den wert von der x position unserers chacarcter
+
+            if (isMoving) {
+            this.idleTime = 0;
+            } else {
+            this.idleTime += 1000 / 60; // entspricht ca. 16.67ms pro Durchlauf
+            }
         }, 1000 / 60);
 
         setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
@@ -65,6 +78,8 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){                // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht --> entweder oder allso auch bei LEFT auf true
                 // walk animation
                 this.playAnimation(this.imagesWalking);                                                     // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
+                } else if (this.idleTime >= 5000){
+                    this.playAnimation(this.imagesStanding);
                 } else {
                     this.playAnimation(this.imagesIdle);                                    // die standard idle animation die immer gegebn ist
                 }
