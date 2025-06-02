@@ -62,7 +62,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
             if (isMoving) {
             this.idleTime = 0;
             } else {
-            this.idleTime += 1000 / 60; // entspricht ca. 16.67ms pro Durchlauf
+            this.idleTime += 1000 / 60; // entspricht ca. 16.67ms pro Durchlauf --> wenn 1000 mal pro sekunden entsprechend der wiederholung 
             }
         }, 1000 / 60);
 
@@ -78,7 +78,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){                // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht --> entweder oder allso auch bei LEFT auf true
                 // walk animation
                 this.playAnimation(this.imagesWalking);                                                     // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
-                } else if (this.idleTime >= 5000){
+                } else if (this.idleTime >= 5000){                                                          // wenn idle time bei 5000 ist also nach 5 sekunden wird diese antimation ausgeführt
                     this.playAnimation(this.imagesStanding);
                 } else {
                     this.playAnimation(this.imagesIdle);                                    // die standard idle animation die immer gegebn ist
