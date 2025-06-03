@@ -40,17 +40,30 @@ class World{
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.checkThrowObjects();
-        }, 200)
+            this.checkThrowableCollisions();
+        }, 50)
     }
 
     checkThrowObjects(){
         if(this.keyboard.D && this.collectedBottles.length > 0){
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);           // der punkt von wo die flasche geworfen wird
             this.throwableObjects.push(bottle);
-            this.collectedBottles.pop(); // Eine Flasche verbrauchen
+            this.collectedBottles.pop(); // Eine Flasche verbrauchen --> löscht das letzte element aus dem array
             this.bottlebar.setPercentage(this.collectedBottles.length); // Statusbar aktualisieren
         }
     }
+
+    checkThrowableCollisions() {
+    this.throwableObjects.forEach((bottle) => {
+        this.level.enemies.forEach((enemy, index) => {
+            if (bottle.isColliding(enemy)) {
+                if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
+                    this.level.enemies.splice(index, 1);  // Entferne den getroffenen Gegner
+                }
+            }
+        });
+    });
+}
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {            // diese function wird jede sekunde einmal für alle gegner ausgeführt

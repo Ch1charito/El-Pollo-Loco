@@ -1,4 +1,10 @@
 class ThrowableObject extends MovableObject{
+    offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision zu benutzen
+        top : 10,
+        right : 30,
+        bottom : 10,
+        left : 30
+    }
 
 
 
