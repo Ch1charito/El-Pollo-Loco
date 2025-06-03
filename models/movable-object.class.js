@@ -72,13 +72,12 @@ class MovableObject extends DrawableObject{                            // eine S
     }
 
     applyGravity(){                                                                     // eine function mit der wir eine gravitatino hinzufügen
-        
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             if(this.isAboveGround() || this.speedY > 0){                                                           // wir sagen er kann nur bis 180 runter fallen                                 
                 this.y -= this.speedY;                                                          // wir möchte von unserem y attribut etwas abziehen
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25);                                                                  // diese function soll 25 mal pro sekunde aufgerufen werden
+        },1000 / 25);                                                                       // diese function soll 25 mal pro sekunde aufgerufen werden
     }
 
 

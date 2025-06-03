@@ -137,15 +137,16 @@ class ImagesHub {
 
 //#region intervalhub
 class IntervalHub {
-    static allIntervals = [];
+    static allIntervals = [];                               // der array in dem wir alle intervalle speichern wollen
 
-    static startInterval(func, timer){
-        const newInterval = setInterval(func, timer);
-        IntervalHub.allIntervals.push(newInterval);
+    static startInterval(func, timer){                      // methode um intervalle dem array hinzuzufügen
+        const newInterval = setInterval(func, timer);       // das neue interval ist das interval welches wir übergeben
+        IntervalHub.allIntervals.push(newInterval);         // wir pushen das neue interval in den array
     }
 
     static stopAllIntervals(){
-        IntervalHub.allIntervals.forEach(clearInterval);
+        IntervalHub.allIntervals.forEach(clearInterval);    // wir gehen durch das array stoppen an jedem index das intervall
+        IntervalHub.allIntervals = [];                      // wir leeren das intervall array es gibt kein intervalle mehr
     }
 }
 //#endregion

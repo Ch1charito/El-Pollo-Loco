@@ -32,13 +32,11 @@ class World{
     }
 
     run(){                                              // diese function wird während dem spiel dauerhaft ausgeführt und hier werden meherer sachen geprüft
-        setInterval(() => {
-
-            // check collision
+        IntervalHub.startInterval(() => {
             this.checkCollisions();
             this.checkCoinCollisions();
             this.checkThrowObjects();
-        }, 200);
+        }, 200)
     }
 
     checkThrowObjects(){

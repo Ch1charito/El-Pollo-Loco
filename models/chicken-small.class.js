@@ -27,14 +27,13 @@ class ChickenSmall extends MovableObject{
     
     // #region methods
     animate(){                                                                        // eine function zum animieren unserers characters
-        setInterval( () => {                                                          // das small chicken bewegt sich nach links
-            this.moveLeft();                                                              
-        },1000 / 60); 
+        IntervalHub.startInterval(() => {
+            this.moveLeft();                                                          // das small chicken bewegt sich nach links
+        },1000 / 60);
         
-
-        setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
+        IntervalHub.startInterval(() => {
             this.playAnimation(this.imagesWalking);                                   // die animation zum laufen wird abgerufen
-        },200);                                                                      // function wird alle 1000ms aufgerufen
+        },200)                                                                          // function wird alle 1000ms aufgerufen                                                                  
         
     }
     // #endregion

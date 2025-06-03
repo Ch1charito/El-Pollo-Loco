@@ -35,8 +35,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
     // #region methods
     animate(){                                                                        // eine function zum animieren unserers characters
 
-        setInterval(() => {
-
+        IntervalHub.startInterval(() => {
             let isMoving = false;                                                       // der zustand ob man sich aktuell bewegt oder nicht
 
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){         // wir sagen das der cahracter nicht weiter gehen kann als der angegebene wert aus levelendx der bei 700 liegt
@@ -65,9 +64,8 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
             this.idleTime += 1000 / 60; // entspricht ca. 16.67ms pro Durchlauf --> wenn 1000 mal pro sekunden entsprechend der wiederholung 
             }
         }, 1000 / 60);
-
-        setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
-            
+        
+        IntervalHub.startInterval(() => {
             if(this.isDead()){                                                          // wenn der character tot ist zeigen wir diese grafiken an und sonst andere
                 this.playAnimation(this.imagesDead);
             } else if (this.isHurt()){
@@ -84,10 +82,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                     this.playAnimation(this.imagesIdle);                                    // die standard idle animation die immer gegebn ist
                 }
             }
-
-
-            
-        },50);                                                                      // function wird alle 1000ms aufgerufen
+        },50);                                                                              // function wird alle 1000ms aufgerufen
         
     }
 

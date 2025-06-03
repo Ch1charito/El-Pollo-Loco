@@ -27,9 +27,9 @@ class Endboss extends MovableObject {
 
     //#region methods
     animate(){
-        setInterval(() => {                                                           // wir wollen die function wiederholen mit einem abstand von 1000 ms
+        IntervalHub.startInterval(() => {
             this.playAnimation(this.imagesWalking);                                   // wir führen eine function zum animieren aus die wir aus movable objects bekommen
-        },200); 
+        },200)
     }
     
     
