@@ -9,7 +9,7 @@ class Healthbar extends DrawableObject{
     constructor(){                                                      // der constructor wird bei jeder instanzierung automatisch aufgerufen
         super();
         this.loadImages(this.imagesHealth);
-        this.x = 40;
+        this.x = 20;
         this.y = 0;
         this.width = 200;
         this.height = 60;

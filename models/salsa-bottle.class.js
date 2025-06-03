@@ -1,4 +1,10 @@
 class SalsaBottle extends DrawableObject{
+    offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision zu benutzen
+        top : 20,
+        right : 35,
+        bottom : 15,
+        left : 35
+    }
 
 
 

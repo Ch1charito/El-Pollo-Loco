@@ -12,8 +12,10 @@ class World{
     keyboard;
     camera_x = 0;                                           // eine variable mit der wir bestimmen um was sich unsere camera bewegen soll --> hier sage ich um wie viel ich den camra auschnitt an der x achse nach links oder nach rechts verschieben möchte
     healthbar = new Healthbar;
+    bottlebar = new Bottlebar;
     coinbar = new Coinbar;
     collectedCoins = [];
+    collectedBottles = [];
     /* coin = new Coin */;
     throwableObjects = [];
     // #endregion
@@ -36,6 +38,7 @@ class World{
         IntervalHub.startInterval(() => {
             this.checkCollisions();
             this.checkCoinCollisions();
+            this.checkBottleCollisions();
             this.checkThrowObjects();
         }, 200)
     }
@@ -67,6 +70,16 @@ class World{
         });
     }
 
+    checkBottleCollisions() {
+    this.level.salsabottles.forEach((bottle, index) => {
+        if (this.character.isColliding(bottle)) {
+        this.collectedBottles.push(bottle);
+        this.level.salsabottles.splice(index, 1);
+        this.bottlebar.setPercentage(this.collectedBottles.length);
+        }
+    });
+    }
+
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben
         this.ctx.translate(this.camera_x, 0);                              // wir verschieben unseren ganzen ausschnitt(context->ctx) um 100px nach links
@@ -76,6 +89,7 @@ class World{
         this.ctx.translate(-this.camera_x, 0);                              // back --> back und forwards um ein object zu fixen
         this.addToMap(this.healthbar);                                      // wir fügen der map statusbar hinzu
         this.addToMap(this.coinbar);
+        this.addToMap(this.bottlebar);
         this.ctx.translate(this.camera_x, 0);                               // forwards
 
         

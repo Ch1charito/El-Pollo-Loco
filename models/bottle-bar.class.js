@@ -1,23 +1,22 @@
-class Coinbar extends DrawableObject {
-    imagesCoin = ImagesHub.statusbar.coin;
-
+class Bottlebar extends DrawableObject {
+    imagesBottle = ImagesHub.statusbar.bottle;
     percentage = 0;
-
-
 
     constructor() {
         super();
-        this.loadImages(this.imagesCoin); // Alle Coinbar-Bilder vorladen
+        /* this.loadImage('img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png') */
+        this.loadImages(this.imagesBottle);
         this.x = 20;
-        this.y = 40;
+        this.y = 80;
         this.width = 200;
         this.height = 60;
-        this.setPercentage(0); // Startwert
+        this.setPercentage(0);
     }
+
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.imagesCoin[this.resolveImageIndex()];
+        let path = this.imagesBottle[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
@@ -36,7 +35,5 @@ class Coinbar extends DrawableObject {
             return 0;
         }
     }
-
-
 
 }
