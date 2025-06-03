@@ -5,6 +5,7 @@ class World{
     enemies = level1.enemies;
     clouds = level1.clouds;
     coins = level1.coins;
+    salsabottles = level1.salsabottles;
     backgroundObjects = level1.backgroundObjects;
     canvas;
     ctx;
@@ -80,6 +81,7 @@ class World{
         
         this.addObejctsToMap(this.level.enemies);       
         this.addObejctsToMap(this.coins);
+        this.addObejctsToMap(this.salsabottles);
         this.addObejctsToMap(this.throwableObjects);
         this.addToMap(this.character);
 

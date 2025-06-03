@@ -44,4 +44,11 @@ const level1 = new Level(
         new Coin(1100, 150),
         new Coin(1300, 150),
     ],
+    [
+        new SalsaBottle(500, 340),
+        new SalsaBottle(700, 340),
+        new SalsaBottle(900, 340),
+        new SalsaBottle(1100, 340),
+        new SalsaBottle(1300, 340),
+    ],
 );
