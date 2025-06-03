@@ -44,9 +44,11 @@ class World{
     }
 
     checkThrowObjects(){
-        if(this.keyboard.D){
+        if(this.keyboard.D && this.collectedBottles.length > 0){
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);           // der punkt von wo die flasche geworfen wird
             this.throwableObjects.push(bottle);
+            this.collectedBottles.pop(); // Eine Flasche verbrauchen
+            this.bottlebar.setPercentage(this.collectedBottles.length); // Statusbar aktualisieren
         }
     }
 
