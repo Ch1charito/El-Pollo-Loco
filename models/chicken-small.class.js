@@ -20,6 +20,7 @@ class ChickenSmall extends MovableObject{
         
         this.speed = 0.50 + Math.random() * 0.25;                                     // wir veränder speed welches bestimmt wie schnell sich die chicken bewegen
         this.animate();
+        this.energy = 50;
     }
     
     

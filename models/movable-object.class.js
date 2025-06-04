@@ -42,6 +42,8 @@ class MovableObject extends DrawableObject{                            // eine S
         }
     }
 
+    
+
     isDead(){                           // eine function um rauszufinden ob unser character oder ein anderer object tot ist oder nicht energy=0
         return this.energy == 0;        // returned true or false
     }
@@ -52,7 +54,15 @@ class MovableObject extends DrawableObject{                            // eine S
         return timePassed < 1;              // wenn wir innerhalb der letzten  sekunde getroffen wurden wird das ergebnis als true zurückgegeben
     }
 
-
+    // eine methode für den hit bei enemy
+    hitEnemy() {
+        this.energy -= 50;  // fester Schaden für Gegner
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
     
 
     playAnimation(images){

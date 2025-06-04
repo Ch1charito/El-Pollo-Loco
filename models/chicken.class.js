@@ -22,6 +22,7 @@ class Chicken extends MovableObject{                    // auch wenn Chicken lee
         
         this.speed = 0.15 + Math.random() * 0.25;                                     // wir veränder speed welches bestimmt wie schnell sich die chicken bewegen
         this.animate();
+        this.energy = 50;
     }
 
     // #region methods
