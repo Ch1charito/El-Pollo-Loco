@@ -18,6 +18,7 @@ class World{
     collectedBottles = [];
     /* coin = new Coin */;
     throwableObjects = [];
+    canThrow = true;                                        // sorgt dafür das ich enimal die flasche schmeißen kann
     // #endregion
 
     constructor(canvas, keyboard){
@@ -41,15 +42,19 @@ class World{
             this.checkBottleCollisions();
             this.checkThrowObjects();
             this.checkThrowableCollisions();
-        }, 50)
+        }, 20)
     }
 
     checkThrowObjects(){
-        if(this.keyboard.D && this.collectedBottles.length > 0){
+        if(this.keyboard.D && this.canThrow && this.collectedBottles.length > 0){
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);           // der punkt von wo die flasche geworfen wird
             this.throwableObjects.push(bottle);
             this.collectedBottles.pop(); // Eine Flasche verbrauchen --> löscht das letzte element aus dem array
             this.bottlebar.setPercentage(this.collectedBottles.length); // Statusbar aktualisieren
+            this.canThrow = false;                                                                      // ist auf false ich kann nicht unendlich flaschen schmeißen
+        }
+        if (!this.keyboard.D) {
+            this.canThrow = true;                                                                       // setzt nach dem loslassen der taste d wieder auf true das heißt ich kann per jedem click eine flasche schmeißen                                                               
         }
     }
 
@@ -65,14 +70,28 @@ class World{
     });
 }
 
-    checkCollisions(){
-        this.level.enemies.forEach((enemy) => {            // diese function wird jede sekunde einmal für alle gegner ausgeführt
-                if(this.character.isColliding(enemy)) {
-                    this.character.hit();                      // function mit der wir leben abziehen --> energy
-                    this.healthbar.setPercentage(this.character.energy);        // ich gebe die percenteage weiter anhand des energy des characters und verändere so das bild der statusbar
-                } 
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {                                     // eine abfrage für jedes enemies objekt innerhalb meiner world
+            if (
+                this.character.isColliding(enemy) &&                                // wenn mein character mit meinen enemies kolidiert 
+                this.character.speedY < 0 &&                                        // und er im fall ist
+                this.character.y + this.character.height <= enemy.y + 30            // und die y kooridnate + ide höhe von meinem character kleiner gleich der y von enemy + 30 pixel kulanz sind dann-->
+            ) {
+                // Treffer von oben
+                console.log('Boing!');              
+                let index = this.level.enemies.indexOf(enemy);
+                this.level.enemies.splice(index, 1);                                // entferne ich die enemy aus der world
+            } else if (this.character.isColliding(enemy)) {                         // sonst bei normaler kolidierung wird normaler dmg von meinem character abgezogen
+                // Normale Kollision -> Schaden
+                this.character.hit();
+                this.healthbar.setPercentage(this.character.energy);
+            }
         });
     }
+
+
+    
 
     // eine methode um zu checken ob der eine collisison zwischen coin und chaaracter besteht
     checkCoinCollisions() {
