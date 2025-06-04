@@ -11,15 +11,15 @@ class Endboss extends MovableObject {
         left : 10
     }
 
-    imagesWalking = ImagesHub.endboss.walking;
+    imagesAlert = ImagesHub.endboss.alert;
 
 
     //#endregion
 
 
     constructor(){
-        super().loadImage(this.imagesWalking[0]); 
-        this.loadImages(this.imagesWalking);
+        super().loadImage(this.imagesAlert[0]); 
+        this.loadImages(this.imagesAlert);
         this.x = 2500;
         this.animate();
     }
@@ -28,7 +28,7 @@ class Endboss extends MovableObject {
     //#region methods
     animate(){
         IntervalHub.startInterval(() => {
-            this.playAnimation(this.imagesWalking);                                   // wir führen eine function zum animieren aus die wir aus movable objects bekommen
+            this.playAnimation(this.imagesAlert);                                   // wir führen eine function zum animieren aus die wir aus movable objects bekommen
         },200)
     }
     

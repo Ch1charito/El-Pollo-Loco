@@ -14,6 +14,7 @@ class World{
     healthbar = new Healthbar;
     bottlebar = new Bottlebar;
     coinbar = new Coinbar;
+    endbossbar = new Endbossbar;
     collectedCoins = [];
     collectedBottles = [];
     /* coin = new Coin */;
@@ -27,7 +28,7 @@ class World{
         this.keyboard = keyboard;
         this.draw();                                    // beim erstelen der neuen Welt wird der constructor aufgerufen und somit auch draw mit der wir pepe darstellen können beim erstellen einer welt -> init function
         this.setWorld();
-        this.run();                         
+        this.run();                        
     }
 
     // #region methods
@@ -58,17 +59,21 @@ class World{
         }
     }
 
+
     checkThrowableCollisions() {
-    this.throwableObjects.forEach((bottle) => {
-        this.level.enemies.forEach((enemy, index) => {
+    this.throwableObjects.forEach((bottle, bIndex) => {
+        this.level.enemies.forEach((enemy, eIndex) => {
             if (bottle.isColliding(enemy)) {
                 if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
-                    this.level.enemies.splice(index, 1);  // Entferne den getroffenen Gegner
+                    // Gegner entfernen
+                    this.level.enemies.splice(eIndex, 1);
+                    // Flasche entfernen
+                    this.throwableObjects.splice(bIndex, 1);
                 }
             }
         });
     });
-}
+    }
 
 
     checkCollisions() {
@@ -79,7 +84,7 @@ class World{
                 this.character.y + this.character.height <= enemy.y + 30            // und die y kooridnate + ide höhe von meinem character kleiner gleich der y von enemy + 30 pixel kulanz sind dann-->
             ) {
                 // Treffer von oben
-                console.log('Boing!');              
+                console.log('Boing!');            
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies.splice(index, 1);                                // entferne ich die enemy aus der world
             } else if (this.character.isColliding(enemy)) {                         // sonst bei normaler kolidierung wird normaler dmg von meinem character abgezogen
@@ -89,7 +94,6 @@ class World{
             }
         });
     }
-
 
     
 
@@ -124,8 +128,9 @@ class World{
         this.addToMap(this.healthbar);                                      // wir fügen der map statusbar hinzu
         this.addToMap(this.coinbar);
         this.addToMap(this.bottlebar);
+        
         this.ctx.translate(this.camera_x, 0);                               // forwards
-
+        this.addToMap(this.endbossbar);
         
         this.addObejctsToMap(this.level.enemies);       
         this.addObejctsToMap(this.coins);

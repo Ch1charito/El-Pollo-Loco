@@ -6,6 +6,9 @@ class ThrowableObject extends MovableObject{
         left : 30
     }
 
+    imagesBottleRotation = ImagesHub.bottle.rotation;
+    imagesSplash = ImagesHub.bottle.splash;
+
 
 
 
@@ -15,6 +18,8 @@ class ThrowableObject extends MovableObject{
         this.y = y;
         this.height = 60;
         this.width = 50;
+        this.loadImages(this.imagesBottleRotation);
+        this.loadImages(this.imagesSplash)
         this.throw();
         
 
@@ -24,6 +29,9 @@ class ThrowableObject extends MovableObject{
     throw(){
         this.speedY = 30;
         this.applyGravity();
+        IntervalHub.startInterval(() => {
+            this.playAnimation(this.imagesBottleRotation)
+        },1000 / 60);
         IntervalHub.startInterval(() => {
             this.x += 10;
         }, 25);
