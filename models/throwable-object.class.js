@@ -8,6 +8,7 @@ class ThrowableObject extends MovableObject{
 
     imagesBottleRotation = ImagesHub.bottle.rotation;
     imagesSplash = ImagesHub.bottle.splash;
+    isBroken = false;
 
 
 
@@ -26,7 +27,7 @@ class ThrowableObject extends MovableObject{
     }
 
 
-    throw(){
+    /* throw(){
         this.speedY = 30;
         this.applyGravity();
         IntervalHub.startInterval(() => {
@@ -35,12 +36,27 @@ class ThrowableObject extends MovableObject{
         IntervalHub.startInterval(() => {
             this.x += 10;
         }, 25);
-    }
+    } */
+    throw() {
+        this.speedY = 30;
+        this.applyGravity();
+
+        this.animationIntervalId = IntervalHub.startInterval(() => {
+            if (!this.isBroken) {
+                this.playAnimation(this.imagesBottleRotation);
+            }
+        }, 1000 / 60);
+
+        this.movementIntervalId = IntervalHub.startInterval(() => {
+            if (!this.isBroken) {
+                this.x += 10;
+            }
+        }, 25);
+        }
 
     // eine methode um dafür zu sorgen das die flasche bricht
-    break(){
-        this.speedX = 0;
-        this.speedY = 0;
+    break() {
+        this.isBroken = true;  // markiere als kaputt
         this.playAnimation(this.imagesSplash);
     }
 }

@@ -60,24 +60,9 @@ class World{
     }
 
 
-    /* checkThrowableCollisions() {
-    this.throwableObjects.forEach((bottle, bIndex) => {
-        this.level.enemies.forEach((enemy, eIndex) => {
-            if (bottle.isColliding(enemy)) {
-                if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
-                    // Gegner entfernen
-                    this.level.enemies.splice(eIndex, 1);
-                    // Flasche entfernen
-                    this.throwableObjects.splice(bIndex, 1);
-                }
-            }
-        });
-    });
-    } */
-
     checkThrowableCollisions() {
-    this.throwableObjects.forEach(bottle => {
-        this.level.enemies.forEach(enemy => {
+        this.throwableObjects.forEach(bottle => {
+            this.level.enemies.forEach(enemy => {
             if (bottle.isColliding(enemy)) {
                 // Schaden auf Enemy anwenden (das löst ggf. die Todesanimation aus)
                 enemy.hitEnemy(25);
@@ -90,20 +75,16 @@ class World{
     }
 
 
-
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {                                     // eine abfrage für jedes enemies objekt innerhalb meiner world
+        this.level.enemies.forEach(enemy => {
             if (
-                this.character.isColliding(enemy) &&                                // wenn mein character mit meinen enemies kolidiert 
-                this.character.speedY < 0 &&                                        // und er im fall ist
-                this.character.y + this.character.height <= enemy.y + 30            // und die y kooridnate + ide höhe von meinem character kleiner gleich der y von enemy + 30 pixel kulanz sind dann-->
+                this.character.isColliding(enemy) &&
+                this.character.speedY < 0 &&
+                this.character.y + this.character.height <= enemy.y + 30
             ) {
-                // Treffer von oben
-                console.log('Boing!');
-                let index = this.level.enemies.indexOf(enemy);
-                this.level.enemies.splice(index, 1);                                // entferne ich die enemy aus der world
-            } else if (this.character.isColliding(enemy)) {                         // sonst bei normaler kolidierung wird normaler dmg von meinem character abgezogen
-                // Normale Kollision -> Schaden
+                enemy.hitEnemy(25);  // Schaden an Enemy, der alles weitere regelt
+            } else if (this.character.isColliding(enemy) && enemy.energy > 0) {
+                // Nur Schaden am Character, wenn Enemy noch lebt
                 this.character.hit();
                 this.healthbar.setPercentage(this.character.energy);
             }
