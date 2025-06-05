@@ -64,10 +64,6 @@ class MovableObject extends DrawableObject{                            // eine S
     }
 
     die() {
-        // TODO: Hier könnte später eine Sterbe-Animation abgespielt werden
-        // z. B. this.playAnimation(this.imagesDeath);
-
-        // Markieren für späteres Entfernen aus der Welt
         this.markedForDeletion = true;
     }
     

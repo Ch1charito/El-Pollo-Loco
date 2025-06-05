@@ -5,6 +5,7 @@ class ThrowableObject extends MovableObject{
         bottom : 10,
         left : 30
     }
+    hasHit = false;                                 // um zu sagen die flasche hat noch nicht getroffen und wir mit einer flasche nur einmal damage machen können
 
     imagesBottleRotation = ImagesHub.bottle.rotation;
     imagesSplash = ImagesHub.bottle.splash;
@@ -22,21 +23,8 @@ class ThrowableObject extends MovableObject{
         this.loadImages(this.imagesBottleRotation);
         this.loadImages(this.imagesSplash)
         this.throw();
-        
-
     }
 
-
-    /* throw(){
-        this.speedY = 30;
-        this.applyGravity();
-        IntervalHub.startInterval(() => {
-            this.playAnimation(this.imagesBottleRotation)
-        },1000 / 60);
-        IntervalHub.startInterval(() => {
-            this.x += 10;
-        }, 25);
-    } */
     throw() {
         this.speedY = 30;
         this.applyGravity();

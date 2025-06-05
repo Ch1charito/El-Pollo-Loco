@@ -62,16 +62,18 @@ class World{
 
     checkThrowableCollisions() {
         this.throwableObjects.forEach(bottle => {
+        if (bottle.hasHit) return; // überspringe Flaschen, die schon getroffen haben
             this.level.enemies.forEach(enemy => {
-            if (bottle.isColliding(enemy)) {
-                // Schaden auf Enemy anwenden (das löst ggf. die Todesanimation aus)
-                enemy.hitEnemy(25);
-
-                // Flasche zerbricht animieren, aber nicht entfernen
+                if (bottle.isColliding(enemy)) {
+                    enemy.hitEnemy(25);
+                if (enemy instanceof Endboss) {
+                    this.endbossbar.setPercentage(enemy.energy);
+                }
                 bottle.break();
-            }
+                bottle.hasHit = true; // markieren, dass die Flasche Schaden verursacht hat
+                }
+            });
         });
-    });
     }
 
 

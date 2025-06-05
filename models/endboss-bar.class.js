@@ -21,13 +21,19 @@ class Endbossbar extends DrawableObject{
         this.img = this.imageCache[path];                                       // wir laden aus dem cache dann mit dem richtigen index den pfad in img
     }
 
-    resolveImageIndex(){
-        if(this.percentage == 100){                                          // wenn die percentage 100 ist bild 5, kleiner als 80 bild 4 usw...
+    resolveImageIndex() {
+        if (this.percentage >= 80) {
             return 5;
-        } else if(this.percentage >= 50){
+        } else if (this.percentage >= 60) {
+            return 4;
+        } else if (this.percentage >= 40) {
             return 3;
+        } else if (this.percentage >= 20) {
+            return 2;
+        } else if (this.percentage > 0) {
+            return 1;
         } else {
-            return 0;
-        } 
+            return 0;  // leerer Balken / tot
+        }
     }
 }
