@@ -156,7 +156,18 @@ class ImagesHub {
             'img/4_enemie_boss_chicken/2_alert/G10.png',
             'img/4_enemie_boss_chicken/2_alert/G11.png',
             'img/4_enemie_boss_chicken/2_alert/G12.png',
-        ]
+        ],
+        dead : [
+            'img/4_enemie_boss_chicken/5_dead/G24.png',
+            'img/4_enemie_boss_chicken/5_dead/G25.png',
+            'img/4_enemie_boss_chicken/5_dead/G26.png',
+        ],
+        hurt : [
+            'img/4_enemie_boss_chicken/4_hurt/G21.png',
+            'img/4_enemie_boss_chicken/4_hurt/G22.png',
+            'img/4_enemie_boss_chicken/4_hurt/G23.png',
+            
+        ],
     }
 
 

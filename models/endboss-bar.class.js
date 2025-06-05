@@ -8,7 +8,7 @@ class Endbossbar extends DrawableObject{
         super();
         this.loadImages(this.imagesEndbossbar);
         this.x = 2520;
-        this.y = 40;
+        this.y = 20;
         this.width = 200;
         this.height = 60;
         this.setPercentage(100);

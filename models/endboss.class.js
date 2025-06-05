@@ -12,6 +12,10 @@ class Endboss extends MovableObject {
     }
 
     imagesAlert = ImagesHub.endboss.alert;
+    imagesDead = ImagesHub.endboss.dead;
+    imagesHurt = ImagesHub.endboss.hurt;
+    isHurt = false;
+    hurtDuration = 500;
 
 
     //#endregion
@@ -20,6 +24,8 @@ class Endboss extends MovableObject {
     constructor(){
         super().loadImage(this.imagesAlert[0]); 
         this.loadImages(this.imagesAlert);
+        this.loadImages(this.imagesDead);
+        this.loadImages(this.imagesHurt);
         this.x = 2500;
         this.animate();
         this.energy = 100;
@@ -27,10 +33,39 @@ class Endboss extends MovableObject {
 
 
     //#region methods
-    animate(){
-        IntervalHub.startInterval(() => {
-            this.playAnimation(this.imagesAlert);                                   // wir führen eine function zum animieren aus die wir aus movable objects bekommen
-        },200)
+    
+    animate() {
+        this.animationIntervalId = IntervalHub.startInterval(() => {
+            this.animateImages();
+        }, 200);
+    }
+
+    animateImages = () => {
+        if (this.energy <= 0) {
+            this.playAnimation(this.imagesDead);
+        } else if (this.isHurt) {
+            this.playAnimation(this.imagesHurt);
+        } else {
+            this.playAnimation(this.imagesAlert);
+        }
+    }
+
+    hitEnemy(damage) {
+        super.hitEnemy(damage); // Energie wird reduziert
+
+        if (this.energy <= 0) {
+            this.die();
+        } else {
+            this.isHurt = true;
+            setTimeout(() => {
+                this.isHurt = false;
+            }, this.hurtDuration);
+        }
+    }
+
+    die() {
+        clearInterval(this.animationIntervalId);
+        this.markedForDeletion = true;
     }
     
     
