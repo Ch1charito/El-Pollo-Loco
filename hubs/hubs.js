@@ -178,5 +178,7 @@ class IntervalHub {
         IntervalHub.allIntervals.forEach(clearInterval);    // wir gehen durch das array stoppen an jedem index das intervall
         IntervalHub.allIntervals = [];                      // wir leeren das intervall array es gibt kein intervalle mehr
     }
+
+    
 }
 //#endregion

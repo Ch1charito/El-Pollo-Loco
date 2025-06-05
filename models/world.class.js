@@ -60,7 +60,7 @@ class World{
     }
 
 
-    checkThrowableCollisions() {
+    /* checkThrowableCollisions() {
     this.throwableObjects.forEach((bottle, bIndex) => {
         this.level.enemies.forEach((enemy, eIndex) => {
             if (bottle.isColliding(enemy)) {
@@ -73,7 +73,22 @@ class World{
             }
         });
     });
+    } */
+
+    checkThrowableCollisions() {
+    this.throwableObjects.forEach(bottle => {
+        this.level.enemies.forEach(enemy => {
+            if (bottle.isColliding(enemy)) {
+                // Schaden auf Enemy anwenden (das löst ggf. die Todesanimation aus)
+                enemy.hitEnemy(25);
+
+                // Flasche zerbricht animieren, aber nicht entfernen
+                bottle.break();
+            }
+        });
+    });
     }
+
 
 
     checkCollisions() {
@@ -84,7 +99,7 @@ class World{
                 this.character.y + this.character.height <= enemy.y + 30            // und die y kooridnate + ide höhe von meinem character kleiner gleich der y von enemy + 30 pixel kulanz sind dann-->
             ) {
                 // Treffer von oben
-                console.log('Boing!');            
+                console.log('Boing!');
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies.splice(index, 1);                                // entferne ich die enemy aus der world
             } else if (this.character.isColliding(enemy)) {                         // sonst bei normaler kolidierung wird normaler dmg von meinem character abgezogen

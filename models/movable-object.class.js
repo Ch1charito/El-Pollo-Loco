@@ -55,13 +55,20 @@ class MovableObject extends DrawableObject{                            // eine S
     }
 
     // eine methode für den hit bei enemy
-    hitEnemy() {
-        this.energy -= 50;  // fester Schaden für Gegner
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+    hitEnemy(damage) {
+        this.energy -= damage;
+
+        if (this.energy <= 0) {
+            this.die();
         }
+    }
+
+    die() {
+        // TODO: Hier könnte später eine Sterbe-Animation abgespielt werden
+        // z. B. this.playAnimation(this.imagesDeath);
+
+        // Markieren für späteres Entfernen aus der Welt
+        this.markedForDeletion = true;
     }
     
 

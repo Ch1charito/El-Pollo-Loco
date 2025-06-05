@@ -36,4 +36,11 @@ class ThrowableObject extends MovableObject{
             this.x += 10;
         }, 25);
     }
+
+    // eine methode um dafür zu sorgen das die flasche bricht
+    break(){
+        this.speedX = 0;
+        this.speedY = 0;
+        this.playAnimation(this.imagesSplash);
+    }
 }
