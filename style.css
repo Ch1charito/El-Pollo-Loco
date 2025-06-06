@@ -48,3 +48,27 @@ canvas{
     background-color: black;
     border-radius: 15px;
 }
+.overlay {
+    position: absolute;   
+    width: 720px;          
+    height: 482px;         
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    z-index: 10;
+    img{
+        height: 350px;
+    }           
+}
+.overlay-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.hide{
+    display: none;
+}

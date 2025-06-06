@@ -43,9 +43,26 @@ class World{
             this.checkBottleCollisions();
             this.checkThrowObjects();
             this.checkThrowableCollisions();
-            this.endbossbarTrigger()
+            this.endbossbarTrigger();
+            this.checkGameStatus();
         }, 20)
     }
+
+    // eine methode um mir zu sagen ob gewonnen oder verloren
+    checkGameStatus() {
+        if (this.character.energy <= 0) {
+            setTimeout(() => {
+                IntervalHub.stopAllIntervals();
+            }, 200); // 1 Sekunde warten
+            showLoseScreen();
+        } else if (this.enemies.some(enemy => enemy instanceof Endboss && enemy.energy <= 0)) {
+            setTimeout(() => {
+                IntervalHub.stopAllIntervals();
+            }, 200); // 1 Sekunde warten
+            showWinScreen();
+        }
+    }
+    
 
     checkThrowObjects(){
         if(this.keyboard.D && this.canThrow && this.collectedBottles.length > 0){
