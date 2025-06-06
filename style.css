@@ -72,18 +72,13 @@ canvas{
 .hide{
     display: none;
 }
-/* #start-btn {
-    position: absolute;
-    z-index: 15;
-} */
 #start-btn {
     position: absolute;
     z-index: 15;
-    top: 80%; 
+    top: 67%; 
     left: 50%;
     transform: translateX(-50%); 
 }
-
 .btn{
     background-color: #702632; 
     color: white;

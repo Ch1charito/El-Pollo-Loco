@@ -90,7 +90,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
         if (this instanceof Character){               
             ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
             ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0)';
             ctx.rect(
                 this.x + this.offSett.left,
                 this.y + this.offSett.top,

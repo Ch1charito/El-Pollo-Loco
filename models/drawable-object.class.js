@@ -26,7 +26,7 @@ class DrawableObject {
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall || this instanceof Coin || this instanceof SalsaBottle || this instanceof ThrowableObject){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
             ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
             ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0)';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
@@ -37,7 +37,7 @@ class DrawableObject {
         if (this instanceof Character || this instanceof Endboss || this instanceof Coin || this instanceof Chicken || this instanceof ChickenSmall || this instanceof SalsaBottle || this instanceof ThrowableObject){               
             ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
             ctx.lineWidth = '3';
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0)';                             // colorcode für transparent
             ctx.rect(
                 this.x + this.offSett.left,
                 this.y + this.offSett.top,

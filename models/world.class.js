@@ -144,7 +144,6 @@ class World{
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben
         this.ctx.translate(this.camera_x, 0);                              // wir verschieben unseren ganzen ausschnitt(context->ctx) um 100px nach links
-        /* this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height)      // mit this.character.img greifen wir auf des Bild unseres Characters zu ; pos1 = img, pos2= x position in canvas, pos3= yposition in canvas, pos4= breite und pos5=höhe */
         this.addObejctsToMap(this.level.backgroundObjects);                                                                                   // der hintergrund muss als erstes hinzugefügt werden weil es sonst überallen anderem ist wenn man es zuletzt hinzufügt
         this.addObejctsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);                              // back --> back und forwards um ein object zu fixen
