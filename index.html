@@ -17,44 +17,28 @@
             <p>How to Play</p>
             <div id="nav-play"><p>Left:Arrow-Left</p><p>Right:Arrow-Right</p><p>Jump:Space</p><p>Throw:D</p></div>
         </div>
+        <img id="startOverlay" class="overlay" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="Game Over" />
+        <button class="btn" id="start-btn" onclick="startGame()">Start Game</button>
         <div id="winOverlay" class="overlay hide">
             <div class="overlay-content">
                 <img src="./img/You won, you lost/You Win A.png" alt="Game Over" />
-                <button id="win-restart-btn" onclick="restartGame()">Restart</button>
-                <button onclick="window.location.href='index.html'">Home</button>
-            </div>
-        </div>
-        <div id="loseOverlay" class="overlay hide">
-            <div class="overlay-content">
-                <img src="./img/You won, you lost/Game Over.png" alt="Game Over" />
-                <button id="lose-restart-btn" onclick="restartGame()">Restart</button>
-                <button onclick="window.location.href='index.html'">Home</button>
-            </div>
-        </div>
-        
-        <!-- <div id="startOverlay" class="overlay hide">
-            <div class="overlay-content">
-                <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="Game Over" />
-                <button id="restart-btn">Start Game</button>
+                <div class="btn-area">
+                    <button class="btn" id="win-restart-btn" onclick="restartGame()">Restart</button>
+                    <button class="btn" onclick="window.location.href='index.html'">Home</button>
+                </div>
                 
             </div>
         </div>
-        <div id="winOverlay" class="overlay hide">
-            <div class="overlay-content">
-                <img src="./img/You won, you lost/You Win A.png" alt="Game Over" />
-                <button id="win-restart-btn">Restart</button>
-                <button id="win-home-btn">Home</button>
-            </div>
-        </div>
         <div id="loseOverlay" class="overlay hide">
             <div class="overlay-content">
                 <img src="./img/You won, you lost/Game Over.png" alt="Game Over" />
-                <button id="lose-restart-btn">Restart</button>
-                <button id="lose-home-btn">Home</button>
+                <div class="btn-area">
+                    <button class="btn" id="lose-restart-btn" onclick="restartGame()">Restart</button>
+                    <button class="btn" onclick="window.location.href='index.html'">Home</button>
+                </div>
+                
             </div>
-        </div> -->
-        
-        
+        </div>
     </main>
     
 

@@ -4,10 +4,6 @@ let keyboard = new Keyboard();                                                  
 
 function init() {
     canvas = document.getElementById('canvas');                                 // wir verknüpfen unser canvas
-    initLevel();
-    world = new World(canvas, keyboard);                                        // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit, --> zudem übergeben wir auch unsere variable keyboard
-    console.log('my Character is', world.character);
-    
 }
 
 // #region key-event-listener
@@ -70,16 +66,16 @@ function showLoseScreen(){
 
 // eine funciton um das game zu restarten --> ich lösche die aktuelle world und erstelle eine neue
 function restartGame() {
-    // Stoppe alle laufenden Intervalle
-    IntervalHub.stopAllIntervals();
-
-    // Overlay ausblenden
-    document.getElementById('winOverlay').classList.add('hide');
+    IntervalHub.stopAllIntervals();                                     // Stoppe alle Intervalle --> zur sicherheit
+    document.getElementById('winOverlay').classList.add('hide');        // Overlay ausblenden
     document.getElementById('loseOverlay').classList.add('hide');
-
-    // Neues Level initialisieren
+    initLevel();                                                     // Neues Level initialisieren
+    world = new World(canvas, keyboard);                            // Neue Welt erstellen mit frischem Level
+}
+// eine function um das spiel zu starten
+function startGame() {
     initLevel();
-
-    // Neue Welt erstellen mit frischem Level
-    world = new World(canvas, keyboard);
+    document.getElementById('startOverlay').classList.add('hide');
+    document.getElementById('start-btn').classList.add('hide');
+    world = new World(canvas, keyboard);                                    // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit, --> zudem übergeben wir auch unsere variable keyboard
 }

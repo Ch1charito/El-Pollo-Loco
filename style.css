@@ -72,3 +72,34 @@ canvas{
 .hide{
     display: none;
 }
+/* #start-btn {
+    position: absolute;
+    z-index: 15;
+} */
+#start-btn {
+    position: absolute;
+    z-index: 15;
+    top: 80%; 
+    left: 50%;
+    transform: translateX(-50%); 
+}
+
+.btn{
+    background-color: #702632; 
+    color: white;
+    border-radius: 15px;
+    height: 40px;
+    width: 120px;
+    font-family: "Rye", serif;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.btn:hover{
+    cursor: pointer;
+        filter: drop-shadow(0px 0px 4px #ffffff);
+}
+.btn-area{
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+}
