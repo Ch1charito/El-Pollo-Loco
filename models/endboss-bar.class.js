@@ -7,10 +7,10 @@ class Endbossbar extends DrawableObject{
     constructor() {
         super();
         this.loadImages(this.imagesEndbossbar);
-        this.x = 2520;
-        this.y = 20;
-        this.width = 200;
-        this.height = 60;
+        this.x = 490;
+        this.y = 0;
+        this.width = 0;
+        this.height = 0;
         this.setPercentage(100);
         
     }
@@ -35,5 +35,10 @@ class Endbossbar extends DrawableObject{
         } else {
             return 0;  // leerer Balken / tot
         }
+    }
+
+    showEndbossBar(){           // um ab einer position meine endbossbar sichtbar zu machen
+        this.width = 200;
+        this.height = 60;
     }
 }

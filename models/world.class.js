@@ -43,6 +43,7 @@ class World{
             this.checkBottleCollisions();
             this.checkThrowObjects();
             this.checkThrowableCollisions();
+            this.endbossbarTrigger()
         }, 20)
     }
 
@@ -116,6 +117,13 @@ class World{
     });
     }
 
+    // eine methode um zu endbossbar sichtbar zu machen
+    endbossbarTrigger(){
+        if (this.character.x >= 2000){
+            this.endbossbar.showEndbossBar();
+        }
+    }
+
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)                                                              // wir clearen den inhalt im canvas weil das bild sonst öfter gezeichnet wird bei jedem verschieben
         this.ctx.translate(this.camera_x, 0);                              // wir verschieben unseren ganzen ausschnitt(context->ctx) um 100px nach links
@@ -126,9 +134,9 @@ class World{
         this.addToMap(this.healthbar);                                      // wir fügen der map statusbar hinzu
         this.addToMap(this.coinbar);
         this.addToMap(this.bottlebar);
-        
-        this.ctx.translate(this.camera_x, 0);                               // forwards
         this.addToMap(this.endbossbar);
+        this.ctx.translate(this.camera_x, 0);                               // forwards
+        
         
         this.addObejctsToMap(this.level.enemies);       
         this.addObejctsToMap(this.coins);

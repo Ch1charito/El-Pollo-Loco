@@ -14,8 +14,9 @@ class Endboss extends MovableObject {
     imagesAlert = ImagesHub.endboss.alert;
     imagesDead = ImagesHub.endboss.dead;
     imagesHurt = ImagesHub.endboss.hurt;
+    imagesWalking = ImagesHub.endboss.walking;
     isHurt = false;
-    hurtDuration = 500;
+    isMovingLeft = false;
 
 
     //#endregion
@@ -26,9 +27,11 @@ class Endboss extends MovableObject {
         this.loadImages(this.imagesAlert);
         this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
+        this.loadImages(this.imagesWalking);
         this.x = 2500;
         this.animate();
         this.energy = 100;
+        this.speed = 1;
     }
 
 
@@ -36,8 +39,8 @@ class Endboss extends MovableObject {
     
     animate() {
         this.animationIntervalId = IntervalHub.startInterval(() => {
-            this.animateImages();
-        }, 200);
+            this.animateImages();                                               
+        }, 200);                                                        // 5 mal pro sekunden --> alle 200 ms
     }
 
     animateImages = () => {
@@ -45,27 +48,38 @@ class Endboss extends MovableObject {
             this.playAnimation(this.imagesDead);
         } else if (this.isHurt) {
             this.playAnimation(this.imagesHurt);
+        } else if (this.isMovingLeft) {
+            this.playAnimation(this.imagesWalking);
         } else {
             this.playAnimation(this.imagesAlert);
         }
     }
 
     hitEnemy(damage) {
-        super.hitEnemy(damage); // Energie wird reduziert
-
+        super.hitEnemy(damage);                                         // ich muss hier super.hit Enemy machen weil ich die grundlogik der methode aus movable object nehmen will aber auch noch erweitern will
         if (this.energy <= 0) {
             this.die();
         } else {
             this.isHurt = true;
             setTimeout(() => {
                 this.isHurt = false;
-            }, this.hurtDuration);
+            }, 500);
+            if (!this.isMovingLeft && this.energy < 100) {
+                this.isMovingLeft = true;
+                this.startMovingLeft();
+            }
         }
     }
 
     die() {
-        clearInterval(this.animationIntervalId);
         this.markedForDeletion = true;
+        this.speed = 0;
+    }
+
+    startMovingLeft() {
+        this.moveIntervalId = IntervalHub.startInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
     }
     
     
