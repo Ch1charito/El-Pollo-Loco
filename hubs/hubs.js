@@ -201,7 +201,39 @@ class IntervalHub {
 //#endregion
 
 //#region soundhub
+class Soundhub {
+    static characterWalking = new Audio('audio/character/characterRun.mp3');
+    static characterDamage = new Audio('audio/character/characterDamage.mp3');
+    static characterJump = new Audio('audio/character/characterJump.wav');
+    static characterSnoring = new Audio('audio/character/characterSnoring.mp3');
+    static characterDead = new Audio('audio/character/characterDead.wav');
+    static chickenDead = new Audio('audio/chicken/chickenDead.mp3');
+    static collectBottle = new Audio('audio/collectibles/bottleCollectSound.wav');
+    static collectCoin = new Audio('audio/collectibles/collectSound.wav');
+    static bottleBreak = new Audio('audio/throwable/bottleBreak.mp3');
+    static endbossAttack = new Audio('audio/endboss/endbossApproach.wav');
 
+    static allSounds = [Soundhub.characterWalking, Soundhub.characterDamage, Soundhub.characterJump, Soundhub.characterSnoring, Soundhub.characterDead, Soundhub.chickenDead, Soundhub.collectBottle,
+        Soundhub.collectCoin, Soundhub.bottleBreak, Soundhub.endbossAttack
+    ]
+
+    static playSound(sound){
+        sound.volume = 0.2; // Setzt die Lautstärke auf 0.2 = 20% / 1 = 100%
+        sound.currentTime = 0; // Startet den Sound von Anfang
+        sound.play();
+    }
+
+    static stopSound(sound){
+        sound.pause();  // Pausiert den Sound
+    }
+
+    static stopAllSounds() {
+        SoundHub.allSounds.forEach(sound => {
+            sound.pause();  // Pausiert alle Sounds in allSounds
+        });
+        // document.getElementById('volume').value = 0.2;
+    }
+}
 
 
 //#endregion
