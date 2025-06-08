@@ -42,18 +42,27 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                 this.moveRight();
                 this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
                 isMoving = true;
+                if (Soundhub.characterWalking.paused) {
+                    Soundhub.playSound(Soundhub.characterWalking);
+                }
             }
 
             if(this.world.keyboard.LEFT && this.x > 0){                                 // mit x>0 sagen wir das er nur soweit laufen kann wenn x nicht 0 ist also es noch bild gibt
                 this.moveLeft();
                 this.otherDirection = true;                                             // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true  
                 isMoving = true;
+                if (Soundhub.characterWalking.paused) {
+                    Soundhub.playSound(Soundhub.characterWalking);
+                }
             }
 
             
             if(this.world.keyboard.SPACE && !this.isAboveGround()){                        // wenn wir die taste nach oben drücken und der character ist nicht auf dem boden
                 this.jump();                                                            // --> dann springe
                 isMoving = true;
+                if (Soundhub.characterJump.paused) {
+                    Soundhub.playSound(Soundhub.characterJump);
+                }
             }
 
             this.world.camera_x = -this.x + 100;                                             // jedesmal wenn wir die x koodrinate von unserem character verschieben geben wir camera_x in der world den wert von der x position unserers chacarcter
@@ -63,13 +72,24 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
             } else {
             this.idleTime += 1000 / 60; // entspricht ca. 16.67ms pro Durchlauf --> wenn 1000 mal pro sekunden entsprechend der wiederholung 
             }
+            if (!isMoving && !Soundhub.characterWalking.paused) {
+                Soundhub.stopSound(Soundhub.characterWalking);
+            }
         }, 1000 / 60);
         
         IntervalHub.startInterval(() => {
             if(this.isDead()){                                                          // wenn der character tot ist zeigen wir diese grafiken an und sonst andere
                 this.playAnimation(this.imagesDead);
+                if (!this.isDeadSoundPlayed) {
+                    Soundhub.playSound(Soundhub.characterDead);
+                    this.isDeadSoundPlayed = true;  // Dead-Sound  abspielen
+                }
             } else if (this.isHurt()){
                 this.playAnimation(this.imagesHurt);                                    // wenn der character sich verletzt werden diese bilder in der animtaion abgespielt
+                if (!this.isHurtSoundPlayed) {
+                    Soundhub.playSound(Soundhub.characterDamage);
+                    this.isHurtSoundPlayed = true;
+                }
             }else if(this.isAboveGround()){
                 this.playAnimation(this.imagesJumping);
             } else {
@@ -78,9 +98,17 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                 this.playAnimation(this.imagesWalking);                                                     // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
                 } else if (this.idleTime >= 5000){                                                          // wenn idle time bei 5000 ist also nach 5 sekunden wird diese antimation ausgeführt
                     this.playAnimation(this.imagesStanding);
+                    if (!this.isSnoringSoundPlayed) {
+                        Soundhub.playSound(Soundhub.characterSnoring);
+                        this.isSnoringSoundPlayed = true;
+                        }
                 } else {
                     this.playAnimation(this.imagesIdle);                                    // die standard idle animation die immer gegebn ist
+                    this.isSnoringSoundPlayed = false;
                 }
+
+                this.isDeadSoundPlayed = false;
+                this.isHurtSoundPlayed = false;
             }
         },50);                                                                              // function wird alle 1000ms aufgerufen
         

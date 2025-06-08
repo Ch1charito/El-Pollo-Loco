@@ -212,9 +212,10 @@ class Soundhub {
     static collectCoin = new Audio('audio/collectibles/collectSound.wav');
     static bottleBreak = new Audio('audio/throwable/bottleBreak.mp3');
     static endbossAttack = new Audio('audio/endboss/endbossApproach.wav');
+    static winGame = new Audio('audio/game/gameStart.mp3');
 
     static allSounds = [Soundhub.characterWalking, Soundhub.characterDamage, Soundhub.characterJump, Soundhub.characterSnoring, Soundhub.characterDead, Soundhub.chickenDead, Soundhub.collectBottle,
-        Soundhub.collectCoin, Soundhub.bottleBreak, Soundhub.endbossAttack
+        Soundhub.collectCoin, Soundhub.bottleBreak, Soundhub.endbossAttack, Soundhub.winGame,
     ]
 
     static playSound(sound){
@@ -228,7 +229,7 @@ class Soundhub {
     }
 
     static stopAllSounds() {
-        SoundHub.allSounds.forEach(sound => {
+        Soundhub.allSounds.forEach(sound => {
             sound.pause();  // Pausiert alle Sounds in allSounds
         });
         // document.getElementById('volume').value = 0.2;

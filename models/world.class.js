@@ -58,6 +58,8 @@ class World{
         } else if (this.enemies.some(enemy => enemy instanceof Endboss && enemy.energy <= 0)) {
             setTimeout(() => {
                 IntervalHub.stopAllIntervals();
+                Soundhub.stopAllSounds();
+                Soundhub.playSound(Soundhub.winGame);
             }, 200); // 1 Sekunde warten
             showWinScreen();
         }
@@ -88,6 +90,7 @@ class World{
                     this.endbossbar.setPercentage(enemy.energy);
                 }
                 bottle.break();
+                Soundhub.playSound(Soundhub.bottleBreak);
                 bottle.hasHit = true; // markieren, dass die Flasche Schaden verursacht hat
                 }
             });
@@ -122,6 +125,7 @@ class World{
                 this.collectedCoins.push(coin);         // ins gesammelte Coin-Array
                 this.level.coins.splice(index, 1);      // Coin aus der Welt entfernen
                 this.coinbar.setPercentage(this.collectedCoins.length);
+                Soundhub.playSound(Soundhub.collectCoin);
             }
         });
     }
@@ -132,6 +136,7 @@ class World{
         this.collectedBottles.push(bottle);
         this.level.salsabottles.splice(index, 1);
         this.bottlebar.setPercentage(this.collectedBottles.length);
+        Soundhub.playSound(Soundhub.collectBottle);
         }
     });
     }
@@ -140,7 +145,12 @@ class World{
     endbossbarTrigger(){
         if (this.character.x >= 2000){
             this.endbossbar.showEndbossBar();
+            if (!this.endbossSoundPlayed) {
+                Soundhub.playSound(Soundhub.endbossAttack); // 🔊 Sound einmal abspielen
+                this.endbossSoundPlayed = true;
+            }
         }
+        
     }
 
     draw(){

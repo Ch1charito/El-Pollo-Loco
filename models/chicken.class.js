@@ -41,6 +41,10 @@ class Chicken extends MovableObject{                    // auch wenn Chicken lee
     animateImages = () => {
         if (this.energy <= 0) {
             this.playAnimation(this.imagesDead);
+            if (!this.isDeadSoundPlayed) {
+                Soundhub.playSound(Soundhub.chickenDead);
+                this.isDeadSoundPlayed = true;
+            }
         } else {
             this.playAnimation(this.imagesWalking);
         }

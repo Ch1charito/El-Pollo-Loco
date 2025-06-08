@@ -41,6 +41,10 @@ class ChickenSmall extends MovableObject{
     animateImages = () => {
         if (this.energy <= 0) {
             this.playAnimation(this.imagesDead);
+            if (!this.isDeadSoundPlayed) {
+                Soundhub.playSound(Soundhub.chickenDead);
+                this.isDeadSoundPlayed = true;
+            }
         } else {
             this.playAnimation(this.imagesWalking);
         }
