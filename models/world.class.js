@@ -96,6 +96,7 @@ class World{
 
 
     checkCollisions() {
+        let now = new Date().getTime(); // aktuelle Zeit
         this.level.enemies.forEach(enemy => {
             if (
                 this.character.isColliding(enemy) &&
@@ -103,7 +104,8 @@ class World{
                 this.character.y + this.character.height <= enemy.y + 30
             ) {
                 enemy.hitEnemy(25);  // Schaden an Enemy, der alles weitere regelt
-            } else if (this.character.isColliding(enemy) && enemy.energy > 0) {
+            } else if (this.character.isColliding(enemy) && enemy.energy > 0 &&
+            now - this.character.lastHit > 100) {
                 // Nur Schaden am Character, wenn Enemy noch lebt
                 this.character.hit();
                 this.healthbar.setPercentage(this.character.energy);
