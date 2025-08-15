@@ -72,7 +72,7 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
             } else {
             this.idleTime += 1000 / 60; // entspricht ca. 16.67ms pro Durchlauf --> wenn 1000 mal pro sekunden entsprechend der wiederholung 
             }
-            if (!isMoving && !Soundhub.characterWalking.paused) {
+            if (!isMoving && !Soundhub.characterWalking.paused ) {
                 Soundhub.stopSound(Soundhub.characterWalking);
             }
         }, 1000 / 60);
@@ -83,6 +83,9 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
                 if (!this.isDeadSoundPlayed) {
                     Soundhub.playSound(Soundhub.characterDead);
                     this.isDeadSoundPlayed = true;  // Dead-Sound  abspielen
+                    setTimeout(() => {
+                        Soundhub.stopAllSounds();
+                    }, 1000); // 1 Sekunde warten
                 }
             } else if (this.isHurt()){
                 this.playAnimation(this.imagesHurt);                                    // wenn der character sich verletzt werden diese bilder in der animtaion abgespielt
