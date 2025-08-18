@@ -12,6 +12,9 @@
 <body onload="init()">
     <main>
         <button onclick="toggleImpressum()" class="overlay-open">Impressum</button>
+        <div class="slider">
+        <input type="range" oninput="Soundhub.objSetVolume()" id="volume" min="0" max="1" step="0.01" value="0.2">
+        </div>
         <div class="impressum-overlay hide">
             <div class="impress-header"><h3>Impressum</h3><button onclick="toggleImpressum()" id="close-impressum">X</button></div>
             <div class="impressum-list">

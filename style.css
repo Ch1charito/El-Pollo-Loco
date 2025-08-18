@@ -104,7 +104,7 @@ canvas{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 12;
+    z-index: 16;
     padding: 18px;
     border-radius: 5px;
     h3{
@@ -155,4 +155,16 @@ canvas{
 .overlay-open:hover{
     cursor: pointer;
     filter: drop-shadow(0px 0px 4px #ffffff);
+}
+.slider{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #702632;
+    width: 140px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }

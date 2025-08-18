@@ -28,7 +28,10 @@ class World{
         this.keyboard = keyboard;
         this.draw();                                    // beim erstelen der neuen Welt wird der constructor aufgerufen und somit auch draw mit der wir pepe darstellen können beim erstellen einer welt -> init function
         this.setWorld();
-        this.run();                        
+        this.run();
+        Soundhub.music.loop = true;
+        Soundhub.playSound(Soundhub.music);
+        Soundhub.music.volume = 0.05;                       
     }
 
     // #region methods
@@ -53,12 +56,14 @@ class World{
         if (this.character.energy <= 0) {
             setTimeout(() => {
                 IntervalHub.stopAllIntervals();
+                Soundhub.stopSound(Soundhub.music);
             }, 200); // 1 Sekunde warten
             showLoseScreen();
         } else if (this.enemies.some(enemy => enemy instanceof Endboss && enemy.energy <= 0)) {
             setTimeout(() => {
                 IntervalHub.stopAllIntervals();
                 Soundhub.stopAllSounds();
+                Soundhub.stopSound(Soundhub.music);
                 Soundhub.playSound(Soundhub.winGame);
             }, 200); // 1 Sekunde warten
             showWinScreen();

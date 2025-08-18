@@ -4,6 +4,11 @@ let keyboard = new Keyboard();                                                  
 
 function init() {
     canvas = document.getElementById('canvas');                                 // wir verknüpfen unser canvas
+    let savedVolume = localStorage.getItem("volume");
+    if (savedVolume !== null) {
+        document.getElementById("volume").value = savedVolume;
+        Soundhub.objSetVolume(); // einmal anwenden
+    }
 }
 
 // #region key-event-listener
