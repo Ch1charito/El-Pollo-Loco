@@ -75,11 +75,15 @@ window.addEventListener('keyup', (e) =>{                                        
 // functionen um den loose oder win screen zu zeigen
 
 function showWinScreen() {
+    document.getElementById("moveButtons").style.display = "none";
+    document.getElementById("actionButtons").style.display = "none";
     const winOverlay = document.getElementById('winOverlay');
     winOverlay.classList.remove('hide');
 }
 
 function showLoseScreen(){
+    document.getElementById("moveButtons").style.display = "none";
+    document.getElementById("actionButtons").style.display = "none";
     const loseOverlay = document.getElementById('loseOverlay');
     loseOverlay.classList.remove('hide');
 }
@@ -90,19 +94,68 @@ function restartGame() {
     document.getElementById('winOverlay').classList.add('hide');        // Overlay ausblenden
     document.getElementById('loseOverlay').classList.add('hide');
     initLevel();                                                     // Neues Level initialisieren
+    document.getElementById("moveButtons").style.display = "flex";
+    document.getElementById("actionButtons").style.display = "flex";
     world = new World(canvas, keyboard);                            // Neue Welt erstellen mit frischem Level
 }
 // eine function um das spiel zu starten
 function startGame() {
+    canvas = document.getElementById('canvas');
     initLevel();
     document.getElementById('startOverlay').classList.add('hide');
     document.getElementById('start-btn').classList.add('hide');
+
+    document.getElementById("moveButtons").style.display = "flex";
+    document.getElementById("actionButtons").style.display = "flex";
     world = new World(canvas, keyboard);                                    // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit, --> zudem übergeben wir auch unsere variable keyboard
 }
 
 function toggleImpressum() {
     document.querySelector('.impressum-overlay')
     .classList.toggle('hide');
+}
+window.onload = () => {
+    document.getElementById("touchWalkLeftButton").addEventListener("touchstart", (e) =>{
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+
+    document.getElementById("touchWalkRightButton").addEventListener("touchstart", (e) =>{
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById("touchJumpButton").addEventListener("touchstart", (e) =>{
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+
+    document.getElementById("touchThrowBottleButton").addEventListener("touchstart", (e) =>{
+        e.preventDefault();
+        keyboard.D = true;
+        dWasReleased = false;
+    });
+
+    document.getElementById("touchWalkLeftButton").addEventListener("touchend", (e) =>{
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById("touchWalkRightButton").addEventListener("touchend", (e) =>{
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById("touchJumpButton").addEventListener("touchend", (e) =>{
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+
+    document.getElementById("touchThrowBottleButton").addEventListener("touchend", (e) =>{
+        e.preventDefault();
+        keyboard.D = false;
+        dWasReleased = true;
+    });
 }
 
 window.addEventListener("load", checkDeviceOrientation);

@@ -76,6 +76,10 @@ canvas{
     }
     img{
         height: 350px;
+        @media (max-width: 1024px){
+            height: 315px;
+        }
+        
     }           
 }
 .overlay-content{
@@ -203,3 +207,42 @@ canvas{
     }
 }
 
+#moveButtons{
+    display: none;
+    position: absolute;
+    z-index: 97;
+    left: 40px;
+    bottom: 2px;
+    gap: 10px;
+
+    button{
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 5px;
+        font-size: 1.5rem;
+        background-color: rgb(255, 165, 0, 0.5);
+        color: white;
+        border-radius: 15px;
+        border: none;
+    }
+}
+#actionButtons{
+    display: none;
+    position: absolute;
+    z-index: 97;
+    right: 40px;
+    bottom: 2px;
+
+    button{
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 5px;
+        font-size: 1.5rem;
+        background-color: rgb(255, 165, 0, 0.5);
+        color: white;
+        border-radius: 15px;
+        border: none;
+    }
+}
