@@ -1,15 +1,14 @@
 class Bottlebar extends DrawableObject {
     imagesBottle = ImagesHub.statusbar.bottle;
     percentage = 0;
+    x = 20;
+    y = 80;
+    width = 200;
+    height = 60;
 
     constructor() {
         super();
-        /* this.loadImage('img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png') */
         this.loadImages(this.imagesBottle);
-        this.x = 20;
-        this.y = 80;
-        this.width = 200;
-        this.height = 60;
         this.setPercentage(0);
     }
 

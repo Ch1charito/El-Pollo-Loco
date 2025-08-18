@@ -1,6 +1,9 @@
 class Coinbar extends DrawableObject {
     imagesCoin = ImagesHub.statusbar.coin;
-
+    x = 20;
+    y = 40;
+    width = 200;
+    height = 60;
     percentage = 0;
 
 
@@ -8,10 +11,6 @@ class Coinbar extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.imagesCoin); // Alle Coinbar-Bilder vorladen
-        this.x = 20;
-        this.y = 40;
-        this.width = 200;
-        this.height = 60;
         this.setPercentage(0); // Startwert
     }
 

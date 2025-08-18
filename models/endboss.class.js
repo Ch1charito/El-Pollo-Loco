@@ -10,6 +10,9 @@ class Endboss extends MovableObject {
         bottom : 15,
         left : 10
     }
+    speed = 1;
+    energy = 100;
+    x = 2500;
 
     imagesAlert = ImagesHub.endboss.alert;
     imagesDead = ImagesHub.endboss.dead;
@@ -28,10 +31,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
         this.loadImages(this.imagesWalking);
-        this.x = 2500;
         this.animate();
-        this.energy = 100;
-        this.speed = 1;
     }
 
 

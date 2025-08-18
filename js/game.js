@@ -79,3 +79,8 @@ function startGame() {
     document.getElementById('start-btn').classList.add('hide');
     world = new World(canvas, keyboard);                                    // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit, --> zudem übergeben wir auch unsere variable keyboard
 }
+
+function toggleImpressum() {
+    document.querySelector('.impressum-overlay')
+    .classList.toggle('hide');
+}

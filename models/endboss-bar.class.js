@@ -2,15 +2,15 @@ class Endbossbar extends DrawableObject{
     imagesEndbossbar = ImagesHub.statusbar.endboss;
 
     percentage = 100;
+    x = 490;
+    y = 0;
+    width = 0;
+    height = 0;
 
 
     constructor() {
         super();
         this.loadImages(this.imagesEndbossbar);
-        this.x = 490;
-        this.y = 0;
-        this.width = 0;
-        this.height = 0;
         this.setPercentage(100);
         
     }

@@ -10,6 +10,8 @@ class ThrowableObject extends MovableObject{
     imagesBottleRotation = ImagesHub.bottle.rotation;
     imagesSplash = ImagesHub.bottle.splash;
     isBroken = false;
+    height = 60;
+    width = 50;
 
 
 
@@ -18,8 +20,6 @@ class ThrowableObject extends MovableObject{
         super().loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png'); 
         this.x = x;
         this.y = y;
-        this.height = 60;
-        this.width = 50;
         this.loadImages(this.imagesBottleRotation);
         this.loadImages(this.imagesSplash)
         this.throw();

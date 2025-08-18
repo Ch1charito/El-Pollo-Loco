@@ -6,6 +6,8 @@ class Coin extends DrawableObject {
         bottom : 60,
         left : 60
     }
+    width = 150;
+    height =150;
 
 
 
@@ -15,8 +17,6 @@ class Coin extends DrawableObject {
         this.loadImage('img/8_coin/coin_1.png');
         this.x = x;
         this.y = y;
-        this.width = 150;
-        this.height =150;
 
 
     }

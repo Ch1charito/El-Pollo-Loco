@@ -11,6 +11,20 @@
 </head>
 <body onload="init()">
     <main>
+        <button onclick="toggleImpressum()" class="overlay-open">Impressum</button>
+        <div class="impressum-overlay hide">
+            <div class="impress-header"><h3>Impressum</h3><button onclick="toggleImpressum()" id="close-impressum">X</button></div>
+            <div class="impressum-list">
+                <span>Robin Bautista Buschmann</span>
+                <span>Centa-Herker-Bogen. 23</span>
+                <span>80797 München</span>
+            </div>
+            <div class="impressum-list">
+                <h3>Kontakt</h3>
+                <span>Telefon: 01726677304</span>
+                <span>E-Mail: r.bautistabuschmann@yahoo.de</span>
+            </div>
+        </div>
         <h1>El Pollo Loco</h1>
         <canvas id="canvas" width="720" height="480"></canvas>
         <div id="info">
@@ -49,7 +63,7 @@
     
 </body>
 <script src="hubs/hubs.js"></script>
-<script src="models/drawable-object.class.js"></script>                     <!-- // es ist wichtig auf die richtige importierung bei den java documenten zu achten, da sonst manche dateien nicht richtig gelesen werden können -->
+<script src="models/drawable-object.class.js"></script>                     
 <script src="models/movable-object.class.js"></script>
 <script src="models/health-bar.class.js"></script>
 <script src="models/coin-bar.class.js"></script>

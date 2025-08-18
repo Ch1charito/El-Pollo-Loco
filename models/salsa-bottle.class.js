@@ -5,6 +5,8 @@ class SalsaBottle extends DrawableObject{
         bottom : 15,
         left : 35
     }
+    width = 100;
+    height = 100;
 
 
 
@@ -14,8 +16,6 @@ class SalsaBottle extends DrawableObject{
         this.loadImage('img/6_salsa_bottle/2_salsa_bottle_on_ground.png');
         this.x = x;
         this.y = y;
-        this.width = 100;
-        this.height = 100;
 
 
     }
