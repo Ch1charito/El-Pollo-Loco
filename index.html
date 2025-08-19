@@ -16,11 +16,11 @@
                 <img src="img/rotate/rotate.gif" alt="">
             </div>
         </div>
-        <button onclick="toggleImpressum()" class="overlay-open">Impressum</button>
+        <!-- <button onclick="toggleImpressum()" class="overlay-open">Impressum</button> -->
         <div class="slider">
         <input type="range" oninput="Soundhub.objSetVolume()" id="volume" min="0" max="1" step="0.01" value="0.2">
         </div>
-        <div class="impressum-overlay hide">
+        <!-- <div class="impressum-overlay hide">
             <div class="impress-header"><h3>Impressum</h3><button onclick="toggleImpressum()" id="close-impressum">X</button></div>
             <div class="impressum-list">
                 <span>Robin Bautista Buschmann</span>
@@ -32,7 +32,7 @@
                 <span>Telefon: 01726677304</span>
                 <span>E-Mail: r.bautistabuschmann@yahoo.de</span>
             </div>
-        </div>
+        </div> -->
         <h1>El Pollo Loco</h1>
         <canvas id="canvas" width="720" height="480"></canvas>
         <div id="moveButtons">
@@ -50,6 +50,7 @@
         
         <img id="startOverlay" class="overlay" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="Game Over" />
         <button class="btn" id="start-btn" onclick="startGame()">Start Game</button>
+        <a id="impress" href="impressum.html">Impressum</a>
         <div id="winOverlay" class="overlay hide">
             <div class="overlay-content">
                 <img src="./img/You won, you lost/You Win A.png" alt="Game Over" />
@@ -71,11 +72,6 @@
             </div>
         </div>
     </main>
-    
-
-    
-
-    <!-- </canvas> -->
     
 </body>
 <script src="hubs/hubs.js"></script>

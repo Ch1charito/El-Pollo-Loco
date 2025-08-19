@@ -246,3 +246,16 @@ canvas{
         border: none;
     }
 }
+#impress{
+    position: absolute;
+    z-index: 15;
+    top: 67%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    margin-top: 50px;
+}
+#impress:hover{
+    cursor: pointer;
+    color: yellow;
+}

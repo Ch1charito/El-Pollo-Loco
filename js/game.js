@@ -104,6 +104,7 @@ function startGame() {
     initLevel();
     document.getElementById('startOverlay').classList.add('hide');
     document.getElementById('start-btn').classList.add('hide');
+    document.getElementById('impress').classList.add('hide');
 
     document.getElementById("moveButtons").style.display = "flex";
     document.getElementById("actionButtons").style.display = "flex";
