@@ -17,12 +17,8 @@ function checkDeviceOrientation(){
     const isMobile = isMobileUserAgent || isMobileViewport;
     if (isMobile && window.innerHeight > window.innerWidth) { // Hochformat auf Mobile
         document.getElementById("rotateOverlay").style.display = "flex";
-        /* document.getElementById("moveButtons").style.display = "flex";
-        document.getElementById("actionButtons").style.display = "flex"; */
     } else {
         document.getElementById("rotateOverlay").style.display = "none";
-        /* document.getElementById("moveButtons").style.display = "none";
-        document.getElementById("actionButtons").style.display = "none"; */
     }
 }
 
@@ -75,15 +71,11 @@ window.addEventListener('keyup', (e) =>{                                        
 // functionen um den loose oder win screen zu zeigen
 
 function showWinScreen() {
-    document.getElementById("moveButtons").style.display = "none";
-    document.getElementById("actionButtons").style.display = "none";
     const winOverlay = document.getElementById('winOverlay');
     winOverlay.classList.remove('hide');
 }
 
 function showLoseScreen(){
-    document.getElementById("moveButtons").style.display = "none";
-    document.getElementById("actionButtons").style.display = "none";
     const loseOverlay = document.getElementById('loseOverlay');
     loseOverlay.classList.remove('hide');
 }
@@ -94,8 +86,6 @@ function restartGame() {
     document.getElementById('winOverlay').classList.add('hide');        // Overlay ausblenden
     document.getElementById('loseOverlay').classList.add('hide');
     initLevel();                                                     // Neues Level initialisieren
-    document.getElementById("moveButtons").style.display = "flex";
-    document.getElementById("actionButtons").style.display = "flex";
     world = new World(canvas, keyboard);                            // Neue Welt erstellen mit frischem Level
 }
 // eine function um das spiel zu starten
@@ -105,9 +95,6 @@ function startGame() {
     document.getElementById('startOverlay').classList.add('hide');
     document.getElementById('start-btn').classList.add('hide');
     document.getElementById('impress').classList.add('hide');
-
-    document.getElementById("moveButtons").style.display = "flex";
-    document.getElementById("actionButtons").style.display = "flex";
     world = new World(canvas, keyboard);                                    // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit, --> zudem übergeben wir auch unsere variable keyboard
 }
 

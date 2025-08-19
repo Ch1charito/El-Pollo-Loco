@@ -217,7 +217,10 @@ class Soundhub {
 
     static allSounds = [Soundhub.characterWalking, Soundhub.characterDamage, Soundhub.characterJump, Soundhub.characterSnoring, Soundhub.characterDead, Soundhub.chickenDead, Soundhub.collectBottle,
         Soundhub.collectCoin, Soundhub.bottleBreak, Soundhub.endbossAttack, Soundhub.winGame, Soundhub.music,
-    ]
+    ];
+
+    static isMuted = false;
+
 
     static playSound(sound){
         sound.volume = 0.2; // Setzt die Lautstärke auf 0.2 = 20% / 1 = 100%
@@ -242,6 +245,17 @@ class Soundhub {
             sound.volume = volumeValue;
         });
         localStorage.setItem('volume', volumeValue);
+    }
+
+    static toggleMute(){
+        this.isMuted = !this.isMuted;
+        this.allSounds.forEach(sound =>{
+            sound.muted = this.isMuted;
+        });
+        this.music.muted = this.isMuted;
+        localStorage.setItem("soundMuted", this.isMuted)
+        const muteBtn = document.getElementById("muteButton");
+        muteBtn.innerText = this.isMuted ? "🔇" : "🔊";
     }
     
 }
