@@ -1,26 +1,46 @@
-class Endbossbar extends DrawableObject{
+/**
+ * Represents the Endboss health bar in the game.
+ * Extends DrawableObject to display images based on health percentage.
+ */
+class Endbossbar extends DrawableObject {
+    /** @type {string[]} Array of image paths for the endboss health bar */
     imagesEndbossbar = ImagesHub.statusbar.endboss;
 
+    /** @type {number} Current health percentage of the endboss */
     percentage = 100;
-    x = 490;
-    y = 0;
-    width = 0;
-    height = 0;
 
+    /** @type {number} Horizontal position on the canvas */
+    x = 490;
+
+    /** @type {number} Vertical position on the canvas */
+    y = 0;
+
+    /** @type {number} Width of the health bar (set dynamically) */
+    width = 0;
+
+    /** @type {number} Height of the health bar (set dynamically) */
+    height = 0;
 
     constructor() {
         super();
         this.loadImages(this.imagesEndbossbar);
         this.setPercentage(100);
-        
     }
 
-    setPercentage(percentage){                                                    // eine function die die percentage der health statusbar verändern soll --> setPercentage(50) leben status healthbar ist bei 50 prozent
-        this.percentage = percentage;                                             // --> muss eine zahl zwischen 0 und 5 ergeben damit wir auf das array mit bildern per index zugreifen können
-        let path = this.imagesEndbossbar[this.resolveImageIndex()];              // hier kommt der pfad 0 bis 5 raus 
-        this.img = this.imageCache[path];                                       // wir laden aus dem cache dann mit dem richtigen index den pfad in img
+    /**
+     * Updates the health bar to reflect the current percentage.
+     * @param {number} percentage - Current health percentage.
+     */
+    setPercentage(percentage) {
+        this.percentage = percentage;
+        let path = this.imagesEndbossbar[this.resolveImageIndex()];
+        this.img = this.imageCache[path];
     }
 
+    /**
+     * Determines the correct image index based on the current health percentage.
+     * @returns {number} Index of the image to display.
+     */
     resolveImageIndex() {
         if (this.percentage >= 80) {
             return 5;
@@ -33,11 +53,14 @@ class Endbossbar extends DrawableObject{
         } else if (this.percentage > 0) {
             return 1;
         } else {
-            return 0;  // leerer Balken / tot
+            return 0;
         }
     }
 
-    showEndbossBar(){           // um ab einer position meine endbossbar sichtbar zu machen
+    /**
+     * Sets the size of the endboss bar for display on the canvas.
+     */
+    showEndbossBar() {
         this.width = 200;
         this.height = 60;
     }

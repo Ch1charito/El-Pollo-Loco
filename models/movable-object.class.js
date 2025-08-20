@@ -1,105 +1,138 @@
-class MovableObject extends DrawableObject{                            // eine Schablone mit der wir sagen welche Felder drin sein sollen
+/**
+ * Represents any drawable object that can move in the game world.
+ * @extends DrawableObject
+ */
+class MovableObject extends DrawableObject {
+    //#region attributes
 
-    // #region attributes
+    /** @type {number} Horizontal movement speed */
     speed = 0.15;
-    otherDirection = false;                     // eine variable mit der wir die richtung von unserem character bestimmen --> standardmäßig faalse weil wir nicht gespiegelt starten wollen
-    speedY = 0;                                 // eine geschwindigkeit auf der y achse --> wie schnell unser object nach unten fällt
-    acceleration = 2.5;                           // eine variable mit der wir sagen wie schnell unser object im Fallen beschleunigt wird
-    energy = 100;                               // unsere hp also volles leben
+
+    /** @type {boolean} Indicates if the object is facing the opposite direction */
+    otherDirection = false;
+
+    /** @type {number} Vertical speed for jumping or falling */
+    speedY = 0;
+
+    /** @type {number} Gravity/acceleration affecting vertical movement */
+    acceleration = 2.5;
+
+    /** @type {number} Current health or energy of the object */
+    energy = 100;
+
+    /** @type {number} Timestamp of the last hit received */
     lastHit = 0;
-    // #endregion
 
-    // #region methods
+    //#endregion
 
+    //#region methods
 
-    
-
-    
-    
-
-    // eine function um zu checken ob die objecte miteinander kolidieren  um zu schauen ob character und chicken collidieren character.isColliding(chicken)
-    isColliding(mo){
+    /**
+     * Checks if this object is colliding with another movable object.
+     * @param {MovableObject} mo - Another movable object
+     * @returns {boolean} True if collision occurs, false otherwise
+     */
+    isColliding(mo) {
         return this.x + this.offSett.left + this.width - this.offSett.right - this.offSett.left > mo.x + mo.offSett.left &&
-        this.y + this.offSett.top + this.height - this.offSett.top - this.offSett.bottom > mo.y + mo.offSett.top &&
-        this.x + this.offSett.left < mo.x + mo.offSett.left + mo.width - mo.offSett.left - mo.offSett.right &&
-        this.y + this.offSett.top < mo.y + mo.offSett.top + mo.height - mo.offSett.top - mo.offSett.bottom;    
+               this.y + this.offSett.top + this.height - this.offSett.top - this.offSett.bottom > mo.y + mo.offSett.top &&
+               this.x + this.offSett.left < mo.x + mo.offSett.left + mo.width - mo.offSett.left - mo.offSett.right &&
+               this.y + this.offSett.top < mo.y + mo.offSett.top + mo.height - mo.offSett.top - mo.offSett.bottom;
     }
 
-
-
-    hit(){
-        this.energy -= 5;                // sobald wir mit dem object chicken collidiren wird unseren character ernergy minus 2 gemacht also 2 hp abgezogen
-        if(this.energy < 0){             // wenn es kleiner als 0  sein würde geben wir einfach den wert 0 damit es nicht kleiner als 0 werden kann
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();        // so speichern wir zeit in zahlenform
-        }
+    /**
+     * Reduces energy by 5 points when hit.
+     */
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) this.energy = 0;
+        else this.lastHit = new Date().getTime();
     }
 
-    
-
-    isDead(){                           // eine function um rauszufinden ob unser character oder ein anderer object tot ist oder nicht energy=0
-        return this.energy == 0;        // returned true or false
+    /**
+     * Checks if the object is dead (energy is 0).
+     * @returns {boolean}
+     */
+    isDead() {
+        return this.energy == 0;
     }
 
-    isHurt(){                           // eine function um zu sagen das unser character verletzt ist
-        let timePassed = new Date().getTime() - this.lastHit;       // millisekunden seit dem 01.01.1970 bis aktuell - den letzten hit --> die differenz in milliesekunden
-        timePassed = timePassed / 1000;     // wert von millisekunden in sekunden umgewandelt
-        return timePassed < 1;              // wenn wir innerhalb der letzten  sekunde getroffen wurden wird das ergebnis als true zurückgegeben
+    /**
+     * Checks if the object is recently hurt (within 1 second).
+     * @returns {boolean}
+     */
+    isHurt() {
+        let timePassed = (new Date().getTime() - this.lastHit) / 1000;
+        return timePassed < 1;
     }
 
-    // eine methode für den hit bei enemy
+    /**
+     * Reduces energy by a given damage value and dies if energy <= 0.
+     * @param {number} damage
+     */
     hitEnemy(damage) {
         this.energy -= damage;
-
-        if (this.energy <= 0) {
-            this.die();
-        }
+        if (this.energy <= 0) this.die();
     }
 
+    /**
+     * Marks the object for deletion (used when dead).
+     */
     die() {
         this.markedForDeletion = true;
     }
-    
 
-    playAnimation(images){
-        let i = this.currentImage % images.length;                    // let i = 0 % 6;=> 0,Rest0; --> modulu ist der mathematische Rest; let i = 5 % 6;=> 0,Rest5;  let i = 6 % 6;=> 1,Rest0;
-        // i = 1,2,3,4,5,0   => ist eine unendliche reihe
-        let path = images[i];                                         // wir holen den Pfad zum aktuellen Bild aus dem Array imagesWalking anhand des Index von i 
-        this.img = this.imageCache[path];                                         // Wir setzen das aktuelle Bild (this.img) auf das zwischengespeicherte Bild aus dem Cache anhand des Bildpfads
+    /**
+     * Plays an animation from an array of images.
+     * @param {Array<string>} images - Array of image paths
+     */
+    playAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
         this.currentImage++;
     }
 
+    /**
+     * Moves the object to the right by its speed.
+     */
     moveRight() {
-        this.x += this.speed;                                         
+        this.x += this.speed;
     }
 
-    moveLeft(){
-        this.x -= this.speed;                                                                  
+    /**
+     * Moves the object to the left by its speed.
+     */
+    moveLeft() {
+        this.x -= this.speed;
     }
 
-    applyGravity(){                                                                     // eine function mit der wir eine gravitatino hinzufügen
+    /**
+     * Applies gravity to the object, affecting vertical movement.
+     */
+    applyGravity() {
         IntervalHub.startInterval(() => {
-            if(this.isAboveGround() || this.speedY > 0){                                                           // wir sagen er kann nur bis 180 runter fallen                                 
-                this.y -= this.speedY;                                                          // wir möchte von unserem y attribut etwas abziehen
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        },1000 / 25);                                                                       // diese function soll 25 mal pro sekunde aufgerufen werden
+        }, 1000 / 25);
     }
 
-
-    isAboveGround(){
-        if(this instanceof ThrowableObject){                                        // damit sorgen wir daüf rdas das throwabale object aus dem bild rausfallen kann und nicht auf der höhe 180 von y stehen bleibt
-            return true;
-        }else {
-            return this.y < 180;
-        }
+    /**
+     * Checks if the object is above the ground.
+     * @returns {boolean}
+     */
+    isAboveGround() {
+        if (this instanceof ThrowableObject) return true;
+        else return this.y < 180;
     }
 
-    jump(){
+    /**
+     * Makes the object jump by setting an initial upward speed.
+     */
+    jump() {
         this.speedY = 30;
     }
 
-
-    // #endregion
+    //#endregion
 }

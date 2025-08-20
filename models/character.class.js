@@ -1,125 +1,199 @@
-class Character extends MovableObject{          // auch wenn Character leer ist hat es nun alle eigenschaften die movable object hat --> wir vererben durch extends alle eigenschaften
-
+/**
+ * Represents the playable character.
+ * Inherits from {@link MovableObject}.
+ */
+class Character extends MovableObject {
     // #region attributes
+
+    /** Character height in pixels */
     height = 250;
+
+    /** Y position of the character */
     y = 80;
+
+    /** Movement speed */
     speed = 10;
+
+    /** Images for walking animation */
     imagesWalking = ImagesHub.character.walking;
+
+    /** Images for jumping animation */
     imagesJumping = ImagesHub.character.jumping;
+
+    /** Images for dead animation */
     imagesDead = ImagesHub.character.dead;
+
+    /** Images for hurt animation */
     imagesHurt = ImagesHub.character.hurt;
+
+    /** Images for standing animation */
     imagesStanding = ImagesHub.character.standing;
+
+    /** Images for idle animation */
     imagesIdle = ImagesHub.character.idle;
+
+    /** Reference to the game world */
     world;
-    offSett = {                                     // die varaible um ein offset also einen ineren ramen für die collision bei pepe zu benutzen
-        top : 110,
-        right : 25,
-        bottom : 10,
-        left : 20
+
+    /** Offsets for collision detection */
+    offSett = {
+        top: 110,
+        right: 25,
+        bottom: 10,
+        left: 20
     }
-    idleTime = 0;                                   // Zeit ohne Bewegung in Millisekunden
+
+    /** Time the character has been idle (ms) */
+    idleTime = 0;
+
     // #endregion
 
-    constructor(){                              // wenn irgendwo jemand sagt new Character wird automatisch der constrcutor aufgerufen und alles in den geschweiften Klammern wird ausgeführt
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');                    // mit super greifen wir auf die function aus der übergeordneten class movable objects zu
-        this.loadImages(this.imagesWalking);                                          // super müssen wir nur einmal machen danch können wir mit this arbeiten sobald ein character erstellt wird wird diese function aufgerufen
+    /**
+     * Creates a new character, loads all animations, and starts gravity and animation.
+     */
+    constructor() {
+        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
-        this.loadImages(this.imagesDead);                                             // wir laden die bilder für die aniation wenn er tot ist
+        this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
         this.loadImages(this.imagesStanding);
         this.loadImages(this.imagesIdle);
         this.applyGravity();
-        this.animate();                                                               // wir rufen die function anmiate auf die den character animieren soll
+        this.animate();
     }
 
     // #region methods
-    animate(){                                                                        // eine function zum animieren unserers characters
 
+    /** Starts all movement and animation intervals */
+    animate() {
+        this.startMovementInterval();
+        this.startAnimationInterval();
+    }
+
+    /** Monitors keyboard input and moves the character */
+    startMovementInterval() {
         IntervalHub.startInterval(() => {
-            let isMoving = false;                                                       // der zustand ob man sich aktuell bewegt oder nicht
-
-            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){         // wir sagen das der cahracter nicht weiter gehen kann als der angegebene wert aus levelendx der bei 700 liegt
-                this.moveRight();
-                this.otherDirection = false;                                            // wenn wir die rechte taste drücken is direction false damit wir das bild ungespiegelt haben
-                isMoving = true;
-                if (Soundhub.characterWalking.paused) {
-                    Soundhub.playSound(Soundhub.characterWalking);
-                }
-            }
-
-            if(this.world.keyboard.LEFT && this.x > 0){                                 // mit x>0 sagen wir das er nur soweit laufen kann wenn x nicht 0 ist also es noch bild gibt
-                this.moveLeft();
-                this.otherDirection = true;                                             // hier bestimmen wir das das Bild gespiegelt sein soll und ändern die otherdirection auf true  
-                isMoving = true;
-                if (Soundhub.characterWalking.paused) {
-                    Soundhub.playSound(Soundhub.characterWalking);
-                }
-            }
-
-            
-            if(this.world.keyboard.SPACE && !this.isAboveGround()){                        // wenn wir die taste nach oben drücken und der character ist nicht auf dem boden
-                this.jump();                                                            // --> dann springe
-                isMoving = true;
-                if (Soundhub.characterJump.paused) {
-                    Soundhub.playSound(Soundhub.characterJump);
-                }
-            }
-
-            this.world.camera_x = -this.x + 100;                                             // jedesmal wenn wir die x koodrinate von unserem character verschieben geben wir camera_x in der world den wert von der x position unserers chacarcter
-
+            let isMoving = false;
+            if (this.handleMoveRight()) isMoving = true;
+            if (this.handleMoveLeft()) isMoving = true;
+            if (this.handleJump()) isMoving = true;
+            this.world.camera_x = -this.x + 100;
             if (isMoving) {
-            this.idleTime = 0;
+                this.idleTime = 0;
             } else {
-            this.idleTime += 1000 / 60; // entspricht ca. 16.67ms pro Durchlauf --> wenn 1000 mal pro sekunden entsprechend der wiederholung 
+                this.idleTime += 1000 / 60;
             }
-            if (!isMoving && !Soundhub.characterWalking.paused ) {
+            if (!isMoving && !Soundhub.characterWalking.paused) {
                 Soundhub.stopSound(Soundhub.characterWalking);
             }
         }, 1000 / 60);
-        
-        IntervalHub.startInterval(() => {
-            if(this.isDead()){                                                          // wenn der character tot ist zeigen wir diese grafiken an und sonst andere
-                this.playAnimation(this.imagesDead);
-                if (!this.isDeadSoundPlayed) {
-                    Soundhub.playSound(Soundhub.characterDead);
-                    this.isDeadSoundPlayed = true;  // Dead-Sound  abspielen
-                    setTimeout(() => {
-                        Soundhub.stopAllSounds();
-                    }, 1000); // 1 Sekunde warten
-                }
-            } else if (this.isHurt()){
-                this.playAnimation(this.imagesHurt);                                    // wenn der character sich verletzt werden diese bilder in der animtaion abgespielt
-                if (!this.isHurtSoundPlayed) {
-                    Soundhub.playSound(Soundhub.characterDamage);
-                    this.isHurtSoundPlayed = true;
-                }
-            }else if(this.isAboveGround()){
-                this.playAnimation(this.imagesJumping);
-            } else {
-                if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){                // wir sagen das wenn die taste RIGHT true ist dann wird die animation ausgeführt sonst nicht --> entweder oder allso auch bei LEFT auf true
-                // walk animation
-                this.playAnimation(this.imagesWalking);                                                     // current Image wird erhöht also sind wir beim erneuten ausführen nichtmehr beim index 0 sondern 1
-                } else if (this.idleTime >= 5000){                                                          // wenn idle time bei 5000 ist also nach 5 sekunden wird diese antimation ausgeführt
-                    this.playAnimation(this.imagesStanding);
-                    if (!this.isSnoringSoundPlayed) {
-                        Soundhub.playSound(Soundhub.characterSnoring);
-                        this.isSnoringSoundPlayed = true;
-                        }
-                } else {
-                    this.playAnimation(this.imagesIdle);                                    // die standard idle animation die immer gegebn ist
-                    this.isSnoringSoundPlayed = false;
-                }
-
-                this.isDeadSoundPlayed = false;
-                this.isHurtSoundPlayed = false;
-            }
-        },50);                                                                              // function wird alle 1000ms aufgerufen
-        
     }
 
-    drawRealFrame(ctx){
-        if (this instanceof Character){               
-            ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
+    /** Moves the character to the right */
+    handleMoveRight() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+            if (Soundhub.characterWalking.paused) {
+                Soundhub.playSound(Soundhub.characterWalking);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /** Moves the character to the left */
+    handleMoveLeft() {
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            if (Soundhub.characterWalking.paused) {
+                Soundhub.playSound(Soundhub.characterWalking);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /** Makes the character jump */
+    handleJump() {
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+            if (Soundhub.characterJump.paused) {
+                Soundhub.playSound(Soundhub.characterJump);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /** Starts animation intervals */
+    startAnimationInterval() {
+        IntervalHub.startInterval(() => {
+            if (this.isDead()) {
+                this.handleDeadAnimation();
+            } else if (this.isHurt()) {
+                this.handleHurtAnimation();
+            } else if (this.isAboveGround()) {
+                this.handleJumpAnimation();
+            } else {
+                this.handleWalkOrIdleAnimation();
+            }
+        }, 50);
+    }
+
+    /** Plays the death animation */
+    handleDeadAnimation() {
+        this.playAnimation(this.imagesDead);
+        if (!this.isDeadSoundPlayed) {
+            Soundhub.playSound(Soundhub.characterDead);
+            this.isDeadSoundPlayed = true;
+            setTimeout(() => {
+                Soundhub.stopAllSounds();
+            }, 1000);
+        }
+    }
+
+    /** Plays the hurt animation */
+    handleHurtAnimation() {
+        this.playAnimation(this.imagesHurt);
+        if (!this.isHurtSoundPlayed) {
+            Soundhub.playSound(Soundhub.characterDamage);
+            this.isHurtSoundPlayed = true;
+        }
+    }
+
+    /** Plays the jumping animation */
+    handleJumpAnimation() {
+        this.playAnimation(this.imagesJumping);
+    }
+
+    /** Plays walking or idle animations, or standing if idle for a long time */
+    handleWalkOrIdleAnimation() {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.imagesWalking);
+        } else if (this.idleTime >= 5000) {
+            this.playAnimation(this.imagesStanding);
+            if (!this.isSnoringSoundPlayed) {
+                Soundhub.playSound(Soundhub.characterSnoring);
+                this.isSnoringSoundPlayed = true;
+            }
+        } else {
+            this.playAnimation(this.imagesIdle);
+            this.isSnoringSoundPlayed = false;
+        }
+        this.isDeadSoundPlayed = false;
+        this.isHurtSoundPlayed = false;
+    }
+
+    /**
+     * Draws the collision frame of the character.
+     * @param {CanvasRenderingContext2D} ctx - The canvas drawing context
+     */
+    drawRealFrame(ctx) {
+        if (this instanceof Character) {
+            ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'rgba(255, 0, 0, 0)';
             ctx.rect(
@@ -134,3 +208,4 @@ class Character extends MovableObject{          // auch wenn Character leer ist 
 
     // #endregion
 }
+

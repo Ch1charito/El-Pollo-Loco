@@ -1,43 +1,61 @@
-class Healthbar extends DrawableObject{
+/**
+ * Represents the health bar of the player.
+ * Extends DrawableObject to allow image rendering on the canvas.
+ */
+class Healthbar extends DrawableObject {
     //#region attributes
+    /** @type {string[]} Array of image paths for the health bar */
     imagesHealth = ImagesHub.statusbar.health;
 
-    percentage = 100;                                                   // startpunkt healthbar
-    width = 200;
-    height = 60;
-    x = 20;
-    y = 0
+    /** @type {number} Current health percentage */
+    percentage = 100;
 
+    /** @type {number} Width of the health bar */
+    width = 200;
+
+    /** @type {number} Height of the health bar */
+    height = 60;
+
+    /** @type {number} X position on the canvas */
+    x = 20;
+
+    /** @type {number} Y position on the canvas */
+    y = 0;
     //#endregion
 
-    constructor(){                                                      // der constructor wird bei jeder instanzierung automatisch aufgerufen
+    constructor() {
         super();
         this.loadImages(this.imagesHealth);
-        this.setPercentage(100);                                        // damit die statur bar standardmäßig 100 prozent hat
+        this.setPercentage(100);
     }
 
-    setPercentage(percentage){                                                    // eine function die die percentage der health statusbar verändern soll --> setPercentage(50) leben status healthbar ist bei 50 prozent
-        this.percentage = percentage;                                             // --> muss eine zahl zwischen 0 und 5 ergeben damit wir auf das array mit bildern per index zugreifen können
-        let path = this.imagesHealth[this.resolveImageIndex()];              // hier kommt der pfad 0 bis 5 raus 
-        this.img = this.imageCache[path];                                       // wir laden aus dem cache dann mit dem richtigen index den pfad in img
+    /**
+     * Updates the health bar to reflect the given percentage.
+     * @param {number} percentage - The current health percentage (0-100).
+     */
+    setPercentage(percentage) {
+        this.percentage = percentage;
+        let path = this.imagesHealth[this.resolveImageIndex()];
+        this.img = this.imageCache[path];
     }
 
-
-    resolveImageIndex(){
-        if(this.percentage == 100){                                          // wenn die percentage 100 ist bild 5, kleiner als 80 bild 4 usw...
+    /**
+     * Resolves the correct image index for the current health percentage.
+     * @returns {number} Index of the health bar image to display.
+     */
+    resolveImageIndex() {
+        if (this.percentage == 100) {
             return 5;
-        } else if(this.percentage > 80){
+        } else if (this.percentage > 80) {
             return 4;
-        } else if(this.percentage > 60){
+        } else if (this.percentage > 60) {
             return 3;
-        } else if(this.percentage > 40){
+        } else if (this.percentage > 40) {
             return 2;
-        } else if(this.percentage > 20){
+        } else if (this.percentage > 20) {
             return 1;
         } else {
             return 0;
         }
     }
-    
-
 }

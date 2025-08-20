@@ -1,8 +1,15 @@
 let level1;
 
+/**
+ * Initializes Level 1 of the game.
+ * 
+ * Creates enemies (chickens, final boss), clouds, background objects,
+ * as well as collectible items (coins, bottles), and passes them 
+ * to a new instance of {@link Level}.
+ */
 function initLevel() {
     level1 = new Level(
-        [ // enemies
+        [
             new Chicken(),
             new Chicken(),
             new Chicken(),
@@ -57,3 +64,4 @@ function initLevel() {
         ]
     );
 }
+

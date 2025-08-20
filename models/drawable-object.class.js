@@ -1,43 +1,92 @@
+/**
+ * Base class for all drawable objects in the game.
+ * Handles image loading, caching, and drawing on the canvas.
+ */
 class DrawableObject {
-    //#region attributes
+    // #region attributes
+
+    /** @type {HTMLImageElement} The current image displayed for this object */
     img;
-    imageCache = {};                            // unser Bilderspeicher
+
+    /** @type {Object.<string, HTMLImageElement>} Cache for preloaded images */
+    imageCache = {};
+
+    /** @type {number} Index of the current image in an animation sequence */
     currentImage = 0;
+
+    /** @type {number} Horizontal position on the canvas */
     x = 120;
+
+    /** @type {number} Vertical position on the canvas */
     y = 280;
+
+    /** @type {number} Height of the object */
     height = 150;
+
+    /** @type {number} Width of the object */
     width = 100;
-    //#endregion
+    // #endregion
 
+    // #region methods
 
-    //#region methods
-
-    //loadImage('img/test.png'); = der aufruf der methode mit der wir dann die src bestimmen und dem img den src wert zuweisen
-    loadImage(path){
-        this.img = new Image();                 // image ist ein objekt was wir in javascript haben this.img = document.getElementById('iamge') <img id="image" src>
+    /**
+     * Loads an image from the given path.
+     * @param {string} path - Path to the image file.
+     */
+    loadImage(path) {
+        this.img = new Image();
         this.img.src = path;
     }
 
-    draw(ctx){                                  // parameter ist der context ctx mit dem wir das ganze zeichnen wollen
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);              // wir erstellen eine function um diese immer auszuführen wenn wir etwas darstellen wollen  --> wir geben unsere bilder gespiegelt wieder
+    /**
+     * Draws the object on the provided canvas context.
+     * @param {CanvasRenderingContext2D} ctx - Canvas rendering context.
+     */
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall || this instanceof Coin || this instanceof SalsaBottle || this instanceof ThrowableObject){               // nur wenn wir eine instance also einer erstellung von dem objekt character oder chicken sind wollen wir einen frame also ramen haben
-            ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
+    /**
+     * Draws a transparent frame around the object (used for debugging).
+     * Only applies to certain object types.
+     * @param {CanvasRenderingContext2D} ctx - Canvas rendering context.
+     */
+    drawFrame(ctx) {
+        if (
+            this instanceof Character ||
+            this instanceof Chicken ||
+            this instanceof Endboss ||
+            this instanceof ChickenSmall ||
+            this instanceof Coin ||
+            this instanceof SalsaBottle ||
+            this instanceof ThrowableObject
+        ) {
+            ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'rgba(255, 0, 0, 0)';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
-        
     }
 
-    drawRealFrame(ctx){                                                          // eine function um einen angepassten kleieneren ramen zu zeichnen
-        if (this instanceof Character || this instanceof Endboss || this instanceof Coin || this instanceof Chicken || this instanceof ChickenSmall || this instanceof SalsaBottle || this instanceof ThrowableObject){               
-            ctx.beginPath();                                                     // ich zeichne einen kasten um meine objecte beim zeichnen um das ganze dann für die collision zu benutzen
+    /**
+     * Draws the real collision frame based on offsets (used for debugging).
+     * Only applies to certain object types.
+     * @param {CanvasRenderingContext2D} ctx - Canvas rendering context.
+     */
+    drawRealFrame(ctx) {
+        if (
+            this instanceof Character ||
+            this instanceof Endboss ||
+            this instanceof Coin ||
+            this instanceof Chicken ||
+            this instanceof ChickenSmall ||
+            this instanceof SalsaBottle ||
+            this instanceof ThrowableObject
+        ) {
+            ctx.beginPath();
             ctx.lineWidth = '3';
-            ctx.strokeStyle = 'rgba(255, 0, 0, 0)';                             // colorcode für transparent
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0)';
             ctx.rect(
                 this.x + this.offSett.left,
                 this.y + this.offSett.top,
@@ -48,17 +97,17 @@ class DrawableObject {
         }
     }
 
-    loadImages(arr){                            // parameter ist der array an bildern die wir hinzugüfen wollen --> die function läuft solange wie viele bilder wir hinzufügen wollen
-        arr.forEach((path) => {                 // wir gehen durch dieses array durch
-            let img = new Image();              // wir legen eine variable an mit einem neuen Bild
-            img.src = path;                     // wir laden das Bild nun in das Image Objekt rein
-            this.imageCache[path] = img;       // wir updaten unseren image cache und fügen ihm die bilder hinzu 
+    /**
+     * Loads multiple images and stores them in the image cache.
+     * @param {string[]} arr - Array of image paths to preload.
+     */
+    loadImages(arr) {
+        arr.forEach((path) => {
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
         });
-        
     }
 
-
-
-
-    //#endregion
+    // #endregion
 }

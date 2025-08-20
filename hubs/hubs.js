@@ -1,7 +1,44 @@
 
 //#region imageshub
+
+/**
+ * Central collection of image paths (sprites) for all game entities.
+ * All properties are static and provide arrays of file paths.
+ *
+ * @typedef {Object} ChickenSprites
+ * @property {string[]} walking
+ * @property {string[]} dead
+ *
+ * @typedef {Object} SmallChickenSprites
+ * @property {string[]} walking
+ * @property {string[]} dead
+ *
+ * @typedef {Object} StatusbarSprites
+ * @property {string[]} health
+ * @property {string[]} coin
+ * @property {string[]} bottle
+ * @property {string[]} endboss
+ *
+ * @typedef {Object} BottleSprites
+ * @property {string[]} rotation
+ * @property {string[]} splash
+ *
+ * @typedef {Object} CharacterSprites
+ * @property {string[]} walking
+ * @property {string[]} jumping
+ * @property {string[]} dead
+ * @property {string[]} hurt
+ * @property {string[]} standing
+ * @property {string[]} idle
+ *
+ * @typedef {Object} EndbossSprites
+ * @property {string[]} alert
+ * @property {string[]} dead
+ * @property {string[]} hurt
+ * @property {string[]} walking
+ */
 class ImagesHub {
-    //#region chicken
+    /** @type {ChickenSprites} */
     static chicken = {
         walking : [
             'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -12,9 +49,7 @@ class ImagesHub {
             'img/3_enemies_chicken/chicken_normal/2_dead/dead.png',
         ]
     }
-    //#endregion
-
-    //#region small Chicken
+    /** @type {SmallChickenSprites} */
     static smallChicken = {
         walking : [
             'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -25,17 +60,16 @@ class ImagesHub {
             'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
         ],
     }
-    //#endregion
-
     //#region statusbars
+    /** @type {StatusbarSprites} */
     static statusbar = {
         health : [
-            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',   //0
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',   
             'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
             'img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
             'img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
             'img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png', // 5
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png', 
         ],
         coin : [
             'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
@@ -61,10 +95,9 @@ class ImagesHub {
             'img/7_statusbars/2_statusbar_endboss/orange/orange80.png',
             'img/7_statusbars/2_statusbar_endboss/orange/orange100.png',
         ],
-
     }
     //#endregion
-
+    /** @type {BottleSprites} */
     static bottle = {
         rotation : [
             'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -81,12 +114,11 @@ class ImagesHub {
             'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
         ],
     }
-
-
     //#region character
+    /** @type {CharacterSprites} */
     static character = {
         walking : [
-            'img/2_character_pepe/2_walk/W-21.png',                                   // wir fügen unserem bildspiecer (JSON imageCache) einmal den path und eine value mit dem path hinzu
+            'img/2_character_pepe/2_walk/W-21.png',                                   
             'img/2_character_pepe/2_walk/W-22.png',
             'img/2_character_pepe/2_walk/W-23.png',
             'img/2_character_pepe/2_walk/W-24.png',
@@ -144,8 +176,8 @@ class ImagesHub {
         ],
     }
     //#endregion
-
     //#region endboss
+    /** @type {EndbossSprites} */
     static endboss = {
         alert : [
             'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -175,70 +207,169 @@ class ImagesHub {
             'img/4_enemie_boss_chicken/1_walk/G4.png',
         ],
     }
-
-
     //#endregion
 }
 //#endregion
 
 
-//#region intervalhub
+/**
+ * Manages intervals using setInterval.
+ * Allows starting and stopping multiple intervals.
+ */
 class IntervalHub {
-    static allIntervals = [];                               // der array in dem wir alle intervalle speichern wollen
+    /**
+     * List of all active interval IDs.
+     * @type {number[]}
+     */
+    static allIntervals = [];                               
 
-    static startInterval(func, timer){                      // methode um intervalle dem array hinzuzufügen
-        const newInterval = setInterval(func, timer);       // das neue interval ist das interval welches wir übergeben
-        IntervalHub.allIntervals.push(newInterval);         // wir pushen das neue interval in den array
+    /**
+     * Starts a new interval and stores its ID.
+     * @param {Function} func - The function to be executed repeatedly.
+     * @param {number} timer - Time interval in milliseconds.
+     */
+    static startInterval(func, timer){                      
+        const newInterval = setInterval(func, timer);       
+        IntervalHub.allIntervals.push(newInterval);         
     }
 
+    /**
+     * Stops all running intervals and clears the list.
+     */
     static stopAllIntervals(){
-        IntervalHub.allIntervals.forEach(clearInterval);    // wir gehen durch das array stoppen an jedem index das intervall
-        IntervalHub.allIntervals = [];                      // wir leeren das intervall array es gibt kein intervalle mehr
+        IntervalHub.allIntervals.forEach(clearInterval);    
+        IntervalHub.allIntervals = [];                      
     }
-
-    
 }
-//#endregion
+
+
 
 //#region soundhub
+/**
+ * Soundhub manages all audio effects and background music in the game.
+ * Provides methods for playing, stopping, muting, and adjusting volume.
+ */
 class Soundhub {
+    /**
+     * Character walking sound.
+     * @type {HTMLAudioElement}
+     */
     static characterWalking = new Audio('audio/character/characterRun.mp3');
-    static characterDamage = new Audio('audio/character/characterDamage.mp3');
-    static characterJump = new Audio('audio/character/characterJump.wav');
-    static characterSnoring = new Audio('audio/character/characterSnoring.mp3');
-    static characterDead = new Audio('audio/character/characterDead.wav');
-    static chickenDead = new Audio('audio/chicken/chickenDead.mp3');
-    static collectBottle = new Audio('audio/collectibles/bottleCollectSound.wav');
-    static collectCoin = new Audio('audio/collectibles/collectSound.wav');
-    static bottleBreak = new Audio('audio/throwable/bottleBreak.mp3');
-    static endbossAttack = new Audio('audio/endboss/endbossApproach.wav');
-    static winGame = new Audio('audio/game/gameStart.mp3');
-    static music = new Audio('audio/music/background.mp3')
 
-    static allSounds = [Soundhub.characterWalking, Soundhub.characterDamage, Soundhub.characterJump, Soundhub.characterSnoring, Soundhub.characterDead, Soundhub.chickenDead, Soundhub.collectBottle,
-        Soundhub.collectCoin, Soundhub.bottleBreak, Soundhub.endbossAttack, Soundhub.winGame, Soundhub.music,
+    /**
+     * Character damage sound.
+     * @type {HTMLAudioElement}
+     */
+    static characterDamage = new Audio('audio/character/characterDamage.mp3');
+
+    /**
+     * Character jump sound.
+     * @type {HTMLAudioElement}
+     */
+    static characterJump = new Audio('audio/character/characterJump.wav');
+
+    /**
+     * Character snoring sound while idle.
+     * @type {HTMLAudioElement}
+     */
+    static characterSnoring = new Audio('audio/character/characterSnoring.mp3');
+
+    /**
+     * Character death sound.
+     * @type {HTMLAudioElement}
+     */
+    static characterDead = new Audio('audio/character/characterDead.wav');
+
+    /**
+     * Chicken death sound.
+     * @type {HTMLAudioElement}
+     */
+    static chickenDead = new Audio('audio/chicken/chickenDead.mp3');
+
+    /**
+     * Bottle collection sound.
+     * @type {HTMLAudioElement}
+     */
+    static collectBottle = new Audio('audio/collectibles/bottleCollectSound.wav');
+
+    /**
+     * Coin collection sound.
+     * @type {HTMLAudioElement}
+     */
+    static collectCoin = new Audio('audio/collectibles/collectSound.wav');
+
+    /**
+     * Bottle breaking sound.
+     * @type {HTMLAudioElement}
+     */
+    static bottleBreak = new Audio('audio/throwable/bottleBreak.mp3');
+
+    /**
+     * Endboss attack sound.
+     * @type {HTMLAudioElement}
+     */
+    static endbossAttack = new Audio('audio/endboss/endbossApproach.wav');
+
+    /**
+     * Game win sound.
+     * @type {HTMLAudioElement}
+     */
+    static winGame = new Audio('audio/game/gameStart.mp3');
+
+    /**
+     * Background music of the game.
+     * @type {HTMLAudioElement}
+     */
+    static music = new Audio('audio/music/background.mp3');
+
+    /**
+     * Collection of all sounds to control them together.
+     * @type {HTMLAudioElement[]}
+     */
+    static allSounds = [
+        Soundhub.characterWalking, Soundhub.characterDamage, Soundhub.characterJump,
+        Soundhub.characterSnoring, Soundhub.characterDead, Soundhub.chickenDead,
+        Soundhub.collectBottle, Soundhub.collectCoin, Soundhub.bottleBreak,
+        Soundhub.endbossAttack, Soundhub.winGame, Soundhub.music,
     ];
 
+    /**
+     * Indicates whether sounds are muted.
+     * @type {boolean}
+     */
     static isMuted = false;
 
-
+    /**
+     * Plays a sound.
+     * @param {HTMLAudioElement} sound - The sound to play.
+     */
     static playSound(sound){
-        sound.volume = 0.2; // Setzt die Lautstärke auf 0.2 = 20% / 1 = 100%
-        sound.currentTime = 0; // Startet den Sound von Anfang
+        sound.volume = 0.2; 
+        sound.currentTime = 0; 
         sound.play();
     }
 
+    /**
+     * Stops a sound.
+     * @param {HTMLAudioElement} sound - The sound to stop.
+     */
     static stopSound(sound){
-        sound.pause();  // Pausiert den Sound
+        sound.pause();  
     }
 
+    /**
+     * Stops all currently playing sounds.
+     */
     static stopAllSounds() {
         Soundhub.allSounds.forEach(sound => {
-            sound.pause();  // Pausiert alle Sounds in allSounds
+            sound.pause();  
         });
-        // document.getElementById('volume').value = 0.2;
     }
 
+    /**
+     * Sets the volume of all sounds based on the volume slider
+     * and saves the value in localStorage.
+     */
     static objSetVolume() {
         let volumeValue = document.getElementById('volume').value;  
         Soundhub.allSounds.forEach(sound => {
@@ -247,6 +378,10 @@ class Soundhub {
         localStorage.setItem('volume', volumeValue);
     }
 
+    /**
+     * Toggles mute on/off.
+     * Updates the button icon and saves the state.
+     */
     static toggleMute(){
         this.isMuted = !this.isMuted;
         this.allSounds.forEach(sound =>{
@@ -259,6 +394,5 @@ class Soundhub {
     }
     
 }
-
-
 //#endregion
+

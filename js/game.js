@@ -1,21 +1,29 @@
 let canvas;
 let world;
-let keyboard = new Keyboard();                                                  // ein neues Keyboard von unserem Object
+let keyboard = new Keyboard();                                                  
 
+/**
+ * Initializes the game, sets up the canvas,
+ * and applies saved volume settings.
+ */
 function init() {
-    canvas = document.getElementById('canvas');                                 // wir verknüpfen unser canvas
+    canvas = document.getElementById('canvas');                                 
     let savedVolume = localStorage.getItem("volume");
     if (savedVolume !== null) {
         document.getElementById("volume").value = savedVolume;
-        Soundhub.objSetVolume(); // einmal anwenden
+        Soundhub.objSetVolume();
     }
 }
 
+/**
+ * Checks the current device orientation (mobile/desktop)
+ * and displays a message on mobile devices in portrait mode.
+ */
 function checkDeviceOrientation(){
     const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isMobileViewport = window.matchMedia("(max-width: 1024px)").matches;
     const isMobile = isMobileUserAgent || isMobileViewport;
-    if (isMobile && window.innerHeight > window.innerWidth) { // Hochformat auf Mobile
+    if (isMobile && window.innerHeight > window.innerWidth) { // Portrait on mobile
         document.getElementById("rotateOverlay").style.display = "flex";
     } else {
         document.getElementById("rotateOverlay").style.display = "none";
@@ -23,8 +31,11 @@ function checkDeviceOrientation(){
 }
 
 // #region key-event-listener
-window.addEventListener('keydown', (e) =>{                                     // ein keyboard event wenn man den button runterdrückt
-    if(e.keyCode == 39){                                                       // wenn wir die taste mit dem keyCode 39 drücken ist right im objekt keyboard von false zu right geändert worden
+/**
+ * Handles keydown events and sets the corresponding keyboard flags.
+ */
+window.addEventListener('keydown', (e) =>{                                     
+    if(e.keyCode == 39){                                                       
         keyboard.RIGHT = true;
     };
     if(e.keyCode == 37){
@@ -44,8 +55,11 @@ window.addEventListener('keydown', (e) =>{                                     /
     };
 });
 
-window.addEventListener('keyup', (e) =>{                                        // ein keyboard event wenn man den button loslässt
-    if(e.keyCode == 39){                                                       // wenn wir die taste mit dem keyCode 39 los lassen wird wieder auf false geändert
+/**
+ * Handles keyup events and resets the keyboard flags.
+ */
+window.addEventListener('keyup', (e) =>{                                        
+    if(e.keyCode == 39){                                                       
         keyboard.RIGHT = false;
     };
     if(e.keyCode == 37){
@@ -67,41 +81,59 @@ window.addEventListener('keyup', (e) =>{                                        
 });
 // #endregion
 
-
-// functionen um den loose oder win screen zu zeigen
-
+/**
+ * Displays the win screen overlay.
+ */
 function showWinScreen() {
     const winOverlay = document.getElementById('winOverlay');
     winOverlay.classList.remove('hide');
 }
 
+/**
+ * Displays the lose screen overlay.
+ */
 function showLoseScreen(){
     const loseOverlay = document.getElementById('loseOverlay');
     loseOverlay.classList.remove('hide');
 }
 
-// eine funciton um das game zu restarten --> ich lösche die aktuelle world und erstelle eine neue
+/**
+ * Restarts the game:
+ * stops all intervals, hides overlays, and reloads the level.
+ */
 function restartGame() {
-    IntervalHub.stopAllIntervals();                                     // Stoppe alle Intervalle --> zur sicherheit
-    document.getElementById('winOverlay').classList.add('hide');        // Overlay ausblenden
+    IntervalHub.stopAllIntervals();                                     
+    document.getElementById('winOverlay').classList.add('hide');        
     document.getElementById('loseOverlay').classList.add('hide');
-    initLevel();                                                     // Neues Level initialisieren
-    world = new World(canvas, keyboard);                            // Neue Welt erstellen mit frischem Level
+    initLevel();                                                     
+    world = new World(canvas, keyboard);                            
 }
-// eine function um das spiel zu starten
+
+/**
+ * Starts the game:
+ * hides start overlays and loads the player/level.
+ */
 function startGame() {
     canvas = document.getElementById('canvas');
     initLevel();
     document.getElementById('startOverlay').classList.add('hide');
     document.getElementById('start-btn').classList.add('hide');
     document.getElementById('impress').classList.add('hide');
-    world = new World(canvas, keyboard);                                    // wir erstellen ein neues objekt, eine new World und geben ihr Canvas als unsere variable mit, --> zudem übergeben wir auch unsere variable keyboard
+    world = new World(canvas, keyboard);                                    
 }
 
+/**
+ * Toggles the imprint (impressum) overlay.
+ */
 function toggleImpressum() {
     document.querySelector('.impressum-overlay')
     .classList.toggle('hide');
 }
+
+/**
+ * Adds touch controls for mobile devices
+ * (walk left/right, jump, throw bottle).
+ */
 window.onload = () => {
     document.getElementById("touchWalkLeftButton").addEventListener("touchstart", (e) =>{
         e.preventDefault();
@@ -146,6 +178,11 @@ window.onload = () => {
     });
 }
 
+/**
+ * Reacts to window load, resize, or orientation change
+ * and checks the device orientation.
+ */
 window.addEventListener("load", checkDeviceOrientation);
 window.addEventListener("resize", checkDeviceOrientation);
 window.addEventListener("orientationchange", checkDeviceOrientation);
+
